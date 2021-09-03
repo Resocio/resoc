@@ -1,10 +1,8 @@
 {
-  "name": "@resoc/create-img",
+  "name": "create-img",
   "version": "0.0.5",
   "description": "Create an image based on a Resoc image template",
   "bin": "build/cli.js",
-  "main": "build/index.js",
-  "module": "./build/index.es.js",
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
@@ -29,6 +27,7 @@
     "commander": "^8.1.0",
     "puppeteer": "^10.2.0",
     "recursive-copy": "^2.0.13",
+    "@resoc/create-img": "^0.0.5",
     "@resoc/core": "^0.0.2"
   },
   "devDependencies": {

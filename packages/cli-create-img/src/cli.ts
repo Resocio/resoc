@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 
+import path from 'path'
 import { program } from 'commander'
-import { compileTemplate } from './compile';
+import { compileTemplate, loadLocalTemplate } from '@resoc/create-img';
+import { parseParameters } from './parse-parameters';
 
 const runCompiler = async () => {
   program
@@ -13,7 +15,11 @@ const runCompiler = async () => {
     .option('-o, --output <imagePath>', 'output image file', './output.png')
     .action(async (manifestPath, options) => {
       console.log("Create image...");
-      await compileTemplate(manifestPath, options.params || [], options.output);
+
+      const template = await loadLocalTemplate(manifestPath);
+      const paramValues = parseParameters(template.parameters, options.params || []);
+      await compileTemplate(template, paramValues, options.output, path.resolve(path.dirname(manifestPath)));
+
       console.log("Done!");
     });
 

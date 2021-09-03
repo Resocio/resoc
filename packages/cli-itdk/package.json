@@ -30,12 +30,12 @@
   "homepage": "https://github.com/Resocio/devkit#readme",
   "dependencies": {
     "@resoc/core": "^0.0.3",
+    "@resoc/create-img": "^0.0.5",
     "axios": "^0.21.1",
     "bootstrap": "^5.1.0",
     "cli-color": "^2.0.0",
     "copy": "^0.3.2",
     "copy-text-to-clipboard": "^3.0.1",
-    "create-img": "^0.0.5",
     "express": "^4.17.1",
     "node-watch": "^0.7.1",
     "opener": "^1.5.2",

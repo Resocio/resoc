@@ -1,17 +1,12 @@
-import { loadRemoteTemplate, renderTemplateToHtml } from '@resoc/core'
+import { ImageTemplate, loadRemoteTemplate, ParamValues, renderTemplateToHtml } from '@resoc/core'
 import puppeteer from 'puppeteer'
 import fs from 'fs/promises'
 import path from 'path'
 import os from 'os'
 import copy from 'recursive-copy'
-import { parseParameters } from './parse-parameters'
 import { loadLocalTemplate } from './local'
 
-export const compileTemplate = async (manifestPath: string, params: string[], imagePath: string): Promise<void> => {
-  const template = await loadLocalTemplate(manifestPath);
-
-  const paramValues = parseParameters(template.parameters, params);
-
+export const compileTemplate = async (template: ImageTemplate, paramValues: ParamValues, imagePath: string, resourcePath?: string): Promise<void> => {
   const html = renderTemplateToHtml(template, paramValues);
 
   const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), 'resoc-compile-'));
@@ -21,10 +16,12 @@ export const compileTemplate = async (manifestPath: string, params: string[], im
   await fs.writeFile(htmlPath, html);
 
   // Also copy template resources
-  await copy(
-    path.resolve(path.dirname(manifestPath)),
-    tmpDir
-  );
+  if (resourcePath) {
+    await copy(
+      resourcePath,
+      tmpDir
+    );
+  }
 
   await urlToImage(
     `file:///${htmlPath}`,
@@ -33,9 +30,7 @@ export const compileTemplate = async (manifestPath: string, params: string[], im
 }
 
 export const urlToImage = async (url: string, outputPath: string): Promise<void> => {
-  const browser = await puppeteer.launch(
-//    {args: ['--no-sandbox', '--disable-setuid-sandbox']}
-  );
+  const browser = await puppeteer.launch();
   const page = await browser.newPage();
   // Wait until there are no network connexion for 500ms
   await page.goto(url, {waitUntil: [

@@ -4,7 +4,7 @@ import program from 'commander'
 import { copyTemplate, directoryNotEmpty } from './create-template';
 import { error, log, logDone, newLine, notice, success, warn } from './log';
 import { viewTemplate } from './view-template';
-import { compileTemplate } from 'create-img'
+import { compileTemplate } from '@resoc/create-img';
 import { DefaultManifestName } from '@resoc/core';
 
 const runCommand = async () => {
