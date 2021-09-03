@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Resoc image template viewer</title>
+    <meta
+      name="description"
+      content="This page auto-refresh so you can develop and customize your image template easily"
+    />
+
+    <link rel="shortcut icon" href="/icon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/icon.png" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+      integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container">
+        <a class="pe-3" href="https://resoc.io/" target="_blank">
+          <img src="/resoc-navbar-logo.png" alt="" width="70" height="24">
+        </a>
+        <div class="navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              Resoc Image Template Viewer
+              &#8212;
+              Edit the image template, this page auto-reloads it
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container mt-3">
+      <div id="root"></div>
+    </div>
+
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <script
+      src="https://unpkg.com/react-bootstrap@next/dist/react-bootstrap.min.js"
+      crossorigin></script>
+    <script src="/bundle.js"></script>
+  </body>
+</html>

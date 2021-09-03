@@ -1,0 +1,54 @@
+{
+  "name": "create-img",
+  "version": "0.0.5",
+  "description": "Create an image based on a Resoc image template",
+  "bin": "build/cli.js",
+  "main": "build/index.js",
+  "module": "./build/index.es.js",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "build:module": "rollup -c rollup-module.config.js",
+    "build:cli": "rollup -c rollup-cli.config.js",
+    "build": "npm run build:module && npm run build:cli"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Resocio/compiler.git"
+  },
+  "keywords": [
+    "resoc",
+    "image",
+    "template"
+  ],
+  "author": "Philippe Bernard",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Resocio/compiler/issues"
+  },
+  "homepage": "https://github.com/Resocio/compiler#readme",
+  "dependencies": {
+    "commander": "^8.1.0",
+    "puppeteer": "^10.2.0",
+    "recursive-copy": "^2.0.13",
+    "@resoc/core": "^0.0.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.15.0",
+    "@babel/plugin-transform-runtime": "^7.15.0",
+    "@babel/preset-env": "^7.15.0",
+    "@babel/preset-typescript": "^7.15.0",
+    "@babel/runtime": "^7.15.3",
+    "@rollup/plugin-commonjs": "^20.0.0",
+    "@rollup/plugin-json": "^4.1.0",
+    "@types/jest": "^27.0.1",
+    "jest": "^27.0.6",
+    "nodemon": "^2.0.12",
+    "rollup": "^2.56.3",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-preserve-shebangs": "^0.2.0",
+    "rollup-plugin-typescript2": "^0.30.0",
+    "ts-node": "^10.2.1",
+    "typescript": "^4.3.5"
+  }
+}

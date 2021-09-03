@@ -1,0 +1,105 @@
+.container {
+  width: 100%;
+  height: 100%;
+  background-color: grey;
+  display: flex;
+  align-items: stretch;
+  color: {{ textColor }};
+}
+
+[dir=rtl] .container {
+  direction: rtl;
+}
+
+[dir=ltr] .container {
+  direction: ltr;
+}
+
+.side {
+  flex: 1;
+
+  background-color: {{ backgroundColor }};
+  padding: 2vw;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12vh;
+}
+
+.side-content {
+  flex: 1 2;
+}
+
+#title {
+  margin-top: 0;
+  font-size: 0.01rem; /* Rely on textFit to find the right size */
+  font-family: Roboto;
+  height: 100%;
+}
+
+.footer {
+  flex: 0 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2vw;
+}
+
+.logo {
+  width: 9vh;
+  height: 9vh;
+}
+
+.brand-name {
+  margin: 0;
+  font-size: 9vh;
+  font-family: Roboto;
+}
+
+.main {
+  flex: 1.62; /* For gold proportions */
+  position: relative;
+}
+
+.main-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.extended-background-ltr {
+  position: absolute;
+  left: -1px;
+  top: 0;
+  background-color: {{ backgroundColor }};
+  width: 8vh;
+  height: 100%;
+  clip-path: polygon(
+    0 0, /* left top */
+    100% 0, /* right top */
+    0 100%, /* right bottom */
+    0 100% /* left bottom */
+  );
+}
+
+[dir=rtl] .extended-background-ltr {
+  display: none;
+}
+
+.extended-background-rtl {
+  position: absolute;
+  right: -1px;
+  top: 0;
+  background-color: {{ backgroundColor }};
+  width: 3vw;
+  height: 100%;
+  clip-path: polygon(
+    0 0, /* left top */
+    100% 0, /* right top */
+    100% 100% /* right bottom */
+  );
+}
+
+[dir=ltr] .extended-background-rtl {
+  display: none;
+}
