@@ -20,8 +20,18 @@ The features you need to get the job done easily:
 
 ## Image templates
 
+Image templates are made of HTML and CSS, with a little bit of Mustache.
+Mustache is a simple templating language you use to handle parameters.
+For example, if you build a template to create the social images of a blog,
+you might take parameters for the title, featured image URL, author's name, etc.
 
-https://github.com/Resocio/resoc/tree/main/packages/cli-itdk/starter-templates/basic
+An image template is made of:
+- A manifest, named `resoc.manifest.json` by default. This file declares the template parameters.
+It also lists the ressources that will be run through Mustache to set parameter values.
+- An HTML file, which will be rendered as an image. This file can access parameters via Mustache.
+- All other files you need: CSS, JS...
+
+Browse the [starter template](https://github.com/Resocio/resoc/tree/main/packages/cli-itdk/starter-templates/basic) as an example.
 
 ## View and debug
 
