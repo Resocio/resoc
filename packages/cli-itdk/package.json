@@ -88,5 +88,5 @@
     "webpack-cli": "^4.8.0",
     "webpack-dev-server": "^4.0.0"
   },
-  "gitHead": "f19c96878fbbd99afa7dbf3a1d9be4bc3381d10d"
+  "gitHead": "78e57dbb1e1458802e0b8c6cf7eb7acd256048e9"
 }
