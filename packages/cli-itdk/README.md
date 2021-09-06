@@ -66,14 +66,16 @@ You can call the image generation right from your code. Install the package:
 
 Then:
 
-    import { loadLocalTemplate, compileTemplate } from "@resoc/create-img"
+    import { compileLocalTemplate } from "@resoc/create-img"
 
-    const template = loadLocalTemplate('path/to/resoc.manifest.json');
-    compileTemplate(template, {
-        title: 'A picture is worth a thousand words',
-        mainImageUrl: 'https://resoc.io/assets/img/demo/photos/pexels-photo-371589.jpeg',
-        textColor: '#ffffff',
-        backgroundColor: '#20552a',
-        resoc_imageWidth: '1200',
-        resoc_imageHeight: '630'
-    }, 'output.png', 'path/to');
+    compileLocalTemplate(
+        'path/to/resoc.manifest.json',
+        {
+            title: 'A picture is worth a thousand words',
+            mainImageUrl: 'https://resoc.io/assets/img/demo/photos/pexels-photo-371589.jpeg',
+            textColor: '#ffffff',
+            backgroundColor: '#20552a',
+            resoc_imageWidth: '1200',
+            resoc_imageHeight: '630'
+        },
+        'output.png');

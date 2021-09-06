@@ -6,6 +6,17 @@ import os from 'os'
 import copy from 'recursive-copy'
 import { loadLocalTemplate } from './local'
 
+export const compileLocalTemplate = async (templateManifestPath: string, paramValues: ParamValues, imagePath: string): Promise<void> => {
+  const template = await loadLocalTemplate(templateManifestPath);
+
+  return compileTemplate(
+    template,
+    paramValues,
+    imagePath,
+    path.resolve(path.dirname(templateManifestPath))
+  );
+};
+
 export const compileTemplate = async (template: ImageTemplate, paramValues: ParamValues, imagePath: string, resourcePath?: string): Promise<void> => {
   const html = renderTemplateToHtml(template, paramValues);
 
