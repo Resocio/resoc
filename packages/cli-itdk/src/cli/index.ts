@@ -21,7 +21,7 @@ const runCommand = async () => {
     .action(async (templateDir, args) => {
       const dir = templateDir || '.';
       const dirCaption = templateDir || 'the current directory';
-      const manifestOption = `${templateDir}/${DefaultManifestName}`;
+      const manifestOption = `${dir}/${DefaultManifestName}`;
       log(`Create a new image template in ${warn(dirCaption)}`);
 
       if (!args.force) {
