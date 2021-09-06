@@ -1,6 +1,6 @@
 {
   "name": "itdk",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "Resoc Image Template Development Kit",
   "main": "build/cli/index.js",
   "module": "build/cli/index.es.js",
