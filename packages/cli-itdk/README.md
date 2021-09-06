@@ -5,6 +5,8 @@ Generate personalized, content-rich, branded images for social media and other p
 - You create an image template using HTML and CSS, *once for all*
 - Resoc generates *thousands* of images based on this template
 
+Resoc uses Puppeteer/Chromium to turn your template into regular JPG/PNG images.
+
 ## Quick start
 
     npx itdk init my-new-resoc-template
