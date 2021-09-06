@@ -2,13 +2,12 @@
 
 Generate personalized, content-rich, branded images for social media and other purposes:
 
-- *You* create an image template using HTML and CSS, *once for all*
-- *Resoc* generates *thousands* of images based on this template
+- You create an image template using HTML and CSS, *once for all*
+- Resoc generates *thousands* of images based on this template
 
-## Instant tutorial
+## Quick start
 
-    cd my-new-resoc-template
-    npx itdk init
+    npx itdk init my-new-resoc-template
     # ... and follow the white rabbit
 
 ## Features
