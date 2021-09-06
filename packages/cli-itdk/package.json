@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Resocio/devkit.git"
+    "url": "git+https://github.com/Resocio/resoc.git"
   },
   "keywords": [
     "resoc",
@@ -26,9 +26,9 @@
   "author": "Philippe Bernard",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Resocio/devkit/issues"
+    "url": "https://github.com/Resocio/resoc/issues"
   },
-  "homepage": "https://github.com/Resocio/devkit#readme",
+  "homepage": "https://github.com/Resocio/resoc#readme",
   "dependencies": {
     "@resoc/core": "^0.2.3",
     "@resoc/create-img": "^0.2.6",
