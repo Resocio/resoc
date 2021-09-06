@@ -70,6 +70,7 @@ const TemplateApp = (props: TemplateAppProps) => {
           template={template}
           parameters={parameters}
           values={values}
+          manifestPath={props.manifestPath}
           onChange={(newValues) => {
             setValues(newValues);
           }}

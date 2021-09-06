@@ -36,4 +36,6 @@ Default.loaders = [
     };
   },
 ];
-Default.args = {};
+Default.args = {
+  manifestPath: 'path/to/resoc.manifest.json'
+};

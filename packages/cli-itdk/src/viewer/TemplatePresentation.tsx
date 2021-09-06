@@ -11,6 +11,7 @@ export type TemplatePresentationProps = {
   template: ImageTemplate;
   parameters?: TemplateParam[];
   values: ParamValues;
+  manifestPath: string;
   onChange: (newValues: ParamValues) => void;
 };
 
@@ -114,6 +115,7 @@ const TemplatePresentation = (props: TemplatePresentationProps) => {
           <CreateCommandLine
             template={props.template}
             values={props.values}
+            manifestPath={props.manifestPath}
           />
         </Card.Body>
       </Card>

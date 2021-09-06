@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import copy from 'copy-text-to-clipboard';
 
 export type CreateCommandLineProps = {
+  manifestPath: string;
   template: ImageTemplate;
   values: ParamValues;
 };
@@ -44,7 +45,7 @@ const CreateCommandLine = (props: CreateCommandLineProps) => {
   const dims = platform === 'facebook'
     ? `resoc_imageWidth=1200 resoc_imageHeight=630`
     : `resoc_imageWidth=1500 resoc_imageHeight=750`;
-  const commandLine = `npx itdk create -o ${outputFile} --params ${paramValuesToCommandLine(props.values)} ${dims}`;
+  const commandLine = `npx itdk create ${props.manifestPath} -o ${outputFile} --params ${paramValuesToCommandLine(props.values)} ${dims}`;
 
   return (
     <Wrapper>
