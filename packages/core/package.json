@@ -52,5 +52,6 @@
   "peerDependencies": {
     "axios": "^0.21.1",
     "mustache": "^4.2.0"
-  }
+  },
+  "gitHead": "f19c96878fbbd99afa7dbf3a1d9be4bc3381d10d"
 }
