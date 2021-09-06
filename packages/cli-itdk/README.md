@@ -56,7 +56,7 @@ When your template is ready and you want to integrate it to your CI/CD, use the 
     create-img path/top/resoc.manifest.json -o myImage.jpg --params title="A picture is worth a thousand words" mainImageUrl="https://resoc.io/assets/img/demo/photos/pexels-photo-371589.jpeg" textColor="#ffffff" backgroundColor="#20552a" resoc_imageWidth=1200 resoc_imageHeight=630
 
 As this tool has the same interface as the image template development kit, feel free to start from a command line
-dump by the viewer.
+dumped by the viewer.
 
 ### API
 
@@ -68,7 +68,7 @@ Then:
 
     import { compileLocalTemplate } from "@resoc/create-img"
 
-    compileLocalTemplate(
+    await compileLocalTemplate(
         'path/to/resoc.manifest.json',
         {
             title: 'A picture is worth a thousand words',
@@ -78,4 +78,4 @@ Then:
             resoc_imageWidth: '1200',
             resoc_imageHeight: '630'
         },
-        'output.png');
+        'output.jpg');
