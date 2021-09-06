@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 
+import path from 'path'
 import program from 'commander'
 import { copyTemplate, directoryNotEmpty } from './create-template';
 import { error, log, logDone, newLine, notice, success, warn } from './log';
 import { viewTemplate } from './view-template';
-import { compileTemplate } from '@resoc/create-img';
+import { compileTemplate, loadLocalTemplate, parseParameters } from '@resoc/create-img';
 import { DefaultManifestName } from '@resoc/core';
 
 const runCommand = async () => {
@@ -71,7 +72,11 @@ const runCommand = async () => {
     .option('-o, --output <imagePath>', 'Output image file', './output.png')
     .action(async (manifestPath, options) => {
       log(warn(`Creating image ${options.output} based on template ${manifestPath}`));
-      await compileTemplate(manifestPath, options.params, options.output);
+      const template = await loadLocalTemplate(manifestPath);
+      const paramValues = parseParameters(template.parameters, options.params);
+      await compileTemplate(
+        template, paramValues, options.output, path.resolve(path.dirname(manifestPath))
+      );
       logDone();
     });
 

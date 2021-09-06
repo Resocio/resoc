@@ -2,8 +2,7 @@
 
 import path from 'path'
 import { program } from 'commander'
-import { compileTemplate, loadLocalTemplate } from '@resoc/create-img';
-import { parseParameters } from './parse-parameters';
+import { compileTemplate, loadLocalTemplate, parseParameters } from '@resoc/create-img';
 
 const runCompiler = async () => {
   program
