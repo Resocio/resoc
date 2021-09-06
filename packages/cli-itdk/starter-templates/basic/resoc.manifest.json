@@ -24,15 +24,6 @@
       "name": "backgroundColor",
       "type": "color",
       "demoValue": "#20552a"
-    },
-    {
-      "name": "textDirection",
-      "type": "choice",
-      "values": [
-        { "value": "ltr", "label": "Left to Right"},
-        { "value": "rtl", "label": "Right to Left"}
-      ],
-      "demoValue": "ltr"
     }
   ]
 }

@@ -7,14 +7,6 @@
   color: {{ textColor }};
 }
 
-[dir=rtl] .container {
-  direction: rtl;
-}
-
-[dir=ltr] .container {
-  direction: ltr;
-}
-
 .side {
   flex: 1;
 
@@ -57,7 +49,7 @@
 }
 
 .main {
-  flex: 1.62; /* For gold proportions */
+  flex: 1.62; /* Gold proportions */
   position: relative;
 }
 
@@ -67,7 +59,7 @@
   object-fit: cover;
 }
 
-.extended-background-ltr {
+.extended-background {
   position: absolute;
   left: -1px;
   top: 0;
@@ -75,31 +67,9 @@
   width: 8vh;
   height: 100%;
   clip-path: polygon(
-    0 0, /* left top */
-    100% 0, /* right top */
-    0 100%, /* right bottom */
-    0 100% /* left bottom */
+    0 0,
+    100% 0,
+    0 100%,
+    0 100%
   );
-}
-
-[dir=rtl] .extended-background-ltr {
-  display: none;
-}
-
-.extended-background-rtl {
-  position: absolute;
-  right: -1px;
-  top: 0;
-  background-color: {{ backgroundColor }};
-  width: 3vw;
-  height: 100%;
-  clip-path: polygon(
-    0 0, /* left top */
-    100% 0, /* right top */
-    100% 100% /* right bottom */
-  );
-}
-
-[dir=ltr] .extended-background-rtl {
-  display: none;
 }
