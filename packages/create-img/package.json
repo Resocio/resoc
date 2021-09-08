@@ -26,7 +26,7 @@
   },
   "homepage": "https://github.com/Resocio/compiler#readme",
   "dependencies": {
-    "@resoc/core": "^0.0.2",
+    "@resoc/core": "^0.2.12",
     "commander": "^8.1.0",
     "puppeteer": "^10.2.0",
     "recursive-copy": "^2.0.13"
