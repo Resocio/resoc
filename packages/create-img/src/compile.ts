@@ -1,4 +1,4 @@
-import { ImageTemplate, loadRemoteTemplate, ParamValues, renderTemplateToHtml } from '@resoc/core'
+import { ImageTemplate, ImageResolution, loadRemoteTemplate, ParamValues, renderTemplateToHtml } from '@resoc/core'
 import puppeteer from 'puppeteer'
 import fs from 'fs/promises'
 import path from 'path'
@@ -6,19 +6,20 @@ import os from 'os'
 import copy from 'recursive-copy'
 import { loadLocalTemplate } from './local'
 
-export const compileLocalTemplate = async (templateManifestPath: string, paramValues: ParamValues, imagePath: string): Promise<void> => {
+export const compileLocalTemplate = async (templateManifestPath: string, paramValues: ParamValues, resolution: ImageResolution, imagePath: string): Promise<void> => {
   const template = await loadLocalTemplate(templateManifestPath);
 
   return compileTemplate(
     template,
     paramValues,
+    resolution,
     imagePath,
     path.resolve(path.dirname(templateManifestPath))
   );
 };
 
-export const compileTemplate = async (template: ImageTemplate, paramValues: ParamValues, imagePath: string, resourcePath?: string): Promise<void> => {
-  const html = renderTemplateToHtml(template, paramValues);
+export const compileTemplate = async (template: ImageTemplate, paramValues: ParamValues, resolution: ImageResolution, imagePath: string, resourcePath?: string): Promise<void> => {
+  const html = renderTemplateToHtml(template, paramValues, resolution);
 
   const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), 'resoc-compile-'));
 

@@ -55,10 +55,9 @@ const TemplatePreview = (props: TemplatePreviewProps) => {
 
   useEffect(() => {
     const templateAsHtml = renderTemplateToHtml(
-      props.template, {
-        ...props.parameters,
-          resoc_imageWidth: `${props.width}`,
-          resoc_imageHeight: `${props.height}`
+      props.template, props.parameters, {
+        width: props.width,
+        height: props.height
       }
     );
 

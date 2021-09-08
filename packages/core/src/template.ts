@@ -69,6 +69,21 @@ export interface ImageTemplate {
 
 export type ParamValues = { [ name: string ]: string };
 
+export type ImageResolution = {
+  width: number;
+  height: number;
+};
+
+export const FacebookOpenGraph: ImageResolution = {
+  width: 1200,
+  height: 630
+};
+
+export const TwitterCard: ImageResolution = {
+  width: 1500,
+  height: 750
+};
+
 export const demoParamValues = (params: TemplateParam[]): ParamValues => {
   const values: ParamValues = {};
   params.forEach(param => {
@@ -77,16 +92,23 @@ export const demoParamValues = (params: TemplateParam[]): ParamValues => {
   return values;
 };
 
-export const renderTemplate = (
+export const assignResolutionToParamerters = (values: ParamValues, resolution: ImageResolution) => (
+  Object.assign({}, values, {
+    resoc_imageWidth: resolution.width,
+    resoc_imageHeight: resolution.height
+  })
+);
+
+export const renderRawTemplate = (
   mainTemplate: string,
   template: ImageTemplate,
-  parameters: ParamValues,
-) => {
-  return Mustache.render(mainTemplate, parameters, template.partials);
-};
+  parameters: ParamValues
+) => (
+  Mustache.render(mainTemplate, parameters, template.partials)
+);
 
-export const renderTemplateToHtml = (template: ImageTemplate, parameters: ParamValues) => (
-  renderTemplate(HtmlTemplate, template, parameters)
+export const renderTemplateToHtml = (template: ImageTemplate, parameters: ParamValues, resolution: ImageResolution) => (
+  renderRawTemplate(HtmlTemplate, template, assignResolutionToParamerters(parameters, resolution))
 );
 
 export const parseTemplateManifestParams = (manifest: any): TemplateParam[] => {

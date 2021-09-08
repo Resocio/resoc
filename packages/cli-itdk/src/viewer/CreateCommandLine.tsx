@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ImageTemplate, ParamValues } from '@resoc/core';
+import { ImageTemplate, ParamValues, FacebookOpenGraph, TwitterCard } from '@resoc/core';
 import { Alert, Button, Col, Form } from 'react-bootstrap';
 import styled from 'styled-components';
 import copy from 'copy-text-to-clipboard';
@@ -42,10 +42,9 @@ const CreateCommandLine = (props: CreateCommandLineProps) => {
   const [ platform, setPlatform ] = useState<'facebook' | 'twitter'>('facebook');
 
   const outputFile = `myImage.${imageExt}`;
-  const dims = platform === 'facebook'
-    ? `resoc_imageWidth=1200 resoc_imageHeight=630`
-    : `resoc_imageWidth=1500 resoc_imageHeight=750`;
-  const commandLine = `npx itdk create ${props.manifestPath} -o ${outputFile} --params ${paramValuesToCommandLine(props.values)} ${dims}`;
+  const dims = platform === 'facebook' ? FacebookOpenGraph : TwitterCard;
+  const commandLine =
+    `npx itdk create ${props.manifestPath} -o ${outputFile} --params ${paramValuesToCommandLine(props.values)} -w ${dims.width} -h ${dims.height}`;
 
   return (
     <Wrapper>

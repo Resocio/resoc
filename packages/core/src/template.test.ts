@@ -1,7 +1,12 @@
-import { paramLabel, ParamType, parseTemplateManifestParams, renderTemplate, validateParamValue } from './template'
+import { assignResolutionToParamerters, paramLabel, ParamType, parseTemplateManifestParams, renderRawTemplate, validateParamValue } from './template'
 
-test('renderTemplate', () => {
-  expect(renderTemplate('# {{> content }} *', { partials: { content: 'Hello {{name}}' }, parameters: [] }, { name: 'world' }))
+test('renderRawTemplate', () => {
+  expect(renderRawTemplate(
+    '# {{> content }} *',{
+      partials: { content: 'Hello {{name}}' }, parameters: []
+    }, {
+      name: 'world'
+    }))
     .toEqual('# Hello world *');
 });
 
@@ -50,4 +55,17 @@ test('paramLabel', () => {
   expect(paramLabel({
     label: 'Some Label', name: 'someName', type: ParamType.String, demoValue: 'Foo'
   })).toEqual('Some Label')
+});
+
+test('assignResolutionToParamerters', () => {
+  expect(assignResolutionToParamerters({
+    title: 'Hello'
+  }, {
+    width: 123,
+    height: 456
+  })).toEqual({
+    title: 'Hello',
+    resoc_imageWidth: 123,
+    resoc_imageHeight: 456
+  });
 });
