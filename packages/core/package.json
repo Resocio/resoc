@@ -1,6 +1,6 @@
 {
   "name": "@resoc/core",
-  "version": "0.2.3",
+  "version": "0.2.10",
   "description": "Resoc core utils",
   "main": "build/index.js",
   "module": "build/index.es.js",
