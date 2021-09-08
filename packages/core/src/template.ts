@@ -7,11 +7,11 @@ const PartialContent = 'content';
 const PartialStyles = 'styles';
 
 const HtmlTemplate = `
-<html style="width:{{ resoc_imageWidth }}px;height:{{ resoc_imageHeight }}px;font-size:3vw">
+<html style="width:{{ resoc_imageWidth }}px;height:{{ resoc_imageHeight }}px;font-size:3vw;display:flex;">
   <head>
     <meta name="viewport" content="width={{ resoc_imageWidth }}, initial-scale=1">
   </head>
-  <body style="margin:0;width:100%;height:100%">
+  <body style="margin:0;display:flex;">
     <style>
       {{> ${PartialStyles}}}
     </style>
