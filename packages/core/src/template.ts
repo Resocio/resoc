@@ -22,14 +22,16 @@ const HtmlTemplate = `
       }
 
       body {
-        flex: 1;
+        flex: 1 1 0;
+        min-width: 0;
         margin: 0;
         display: flex;
         align-items: stretch;
       }
 
       body > div {
-        flex: 1;
+        flex: 1 1 0;
+        min-width: 0;
       }
     </style>
     <style>
