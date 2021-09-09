@@ -5,17 +5,59 @@ import path from 'path'
 import os from 'os'
 import copy from 'recursive-copy'
 import { loadLocalTemplate } from './local'
+import { imageFingerprint } from './fingerprint'
+import Mustache from 'mustache'
 
-export const compileLocalTemplate = async (templateManifestPath: string, paramValues: ParamValues, resolution: ImageResolution, imagePath: string): Promise<void> => {
+type LocalTemplateOptions = {
+  cache: boolean;
+};
+
+export const fileExists = async (path: string): Promise<boolean> => {
+  try {
+    await fs.access(path);
+    return true;
+  }
+  catch (e) {
+    return false;
+  }
+};
+
+export const cachedImageName = async (templateDir: string, values: ParamValues, imagePath: string): Promise<string> => {
+  const hash = await imageFingerprint(templateDir, values);
+  return Mustache.render(imagePath, { hash });
+};
+
+export const compileLocalTemplate = async (
+  templateManifestPath: string,
+  paramValues: ParamValues,
+  resolution: ImageResolution,
+  imagePath: string,
+  options?: LocalTemplateOptions
+): Promise<string> => {
+  options = Object.assign({}, {
+    cache: false
+  }, options);
+
+  const templateDir = path.resolve(path.dirname(templateManifestPath));
+
+  if (options.cache) {
+    imagePath = await cachedImageName(templateDir, paramValues, imagePath);
+    if (await fileExists(imagePath)) {
+      return imagePath;
+    }
+  }
+
   const template = await loadLocalTemplate(templateManifestPath);
 
-  return compileTemplate(
+  await compileTemplate(
     template,
     paramValues,
     resolution,
     imagePath,
-    path.resolve(path.dirname(templateManifestPath))
+    templateDir
   );
+
+  return imagePath;
 };
 
 export const compileTemplate = async (template: ImageTemplate, paramValues: ParamValues, resolution: ImageResolution, imagePath: string, resourcePath?: string): Promise<void> => {
