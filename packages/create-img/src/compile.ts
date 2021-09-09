@@ -84,7 +84,9 @@ export const compileTemplate = async (template: ImageTemplate, paramValues: Para
 }
 
 export const urlToImage = async (url: string, outputPath: string): Promise<void> => {
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+  });
   const page = await browser.newPage();
   // Wait until there are no network connexion for 500ms
   await page.goto(url, {waitUntil: [
