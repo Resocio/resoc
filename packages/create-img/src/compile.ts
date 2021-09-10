@@ -1,4 +1,4 @@
-import { ImageTemplate, ImageResolution, loadRemoteTemplate, ParamValues, renderTemplateToHtml } from '@resoc/core'
+import { ImageTemplate, ImageResolution, loadRemoteTemplate, ParamValues, renderTemplateToHtml, TemplateParam, ParamType } from '@resoc/core'
 import puppeteer from 'puppeteer'
 import fs from 'fs/promises'
 import path from 'path'
@@ -7,6 +7,7 @@ import copy from 'recursive-copy'
 import { loadLocalTemplate } from './local'
 import { imageFingerprint } from './fingerprint'
 import Mustache from 'mustache'
+import { v4 as uuidv4 } from 'uuid'
 
 type LocalTemplateOptions = {
   cache: boolean;
@@ -60,10 +61,35 @@ export const compileLocalTemplate = async (
   return imagePath;
 };
 
-export const compileTemplate = async (template: ImageTemplate, paramValues: ParamValues, resolution: ImageResolution, imagePath: string, resourcePath?: string): Promise<void> => {
-  const html = renderTemplateToHtml(template, paramValues, resolution);
+export const isLocalResource = (url: string): boolean => {
+  const up = url.toLowerCase();
+  return (
+    !up.startsWith('http://') &&
+    !up.startsWith('https://') &&
+    !up.startsWith('//')
+  );
+};
 
+const copyLocalResources = async (parameters: TemplateParam[], values: ParamValues, tmpDir: string): Promise<ParamValues> => {
+  const newValues = Object.assign({}, values);
+  for (const param of parameters) {
+    const url = values[param.name];
+    if (param.type === ParamType.ImageUrl && isLocalResource(url)) {
+      const dest = `${tmpDir}/${uuidv4()}-${path.basename(url)}`;
+      await fs.copyFile(url, dest);
+      newValues[param.name] = dest;
+    }
+  }
+  return newValues;
+};
+
+export const compileTemplate = async (template: ImageTemplate, paramValues: ParamValues, resolution: ImageResolution, imagePath: string, resourcePath?: string): Promise<void> => {
   const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), 'resoc-compile-'));
+
+  // Copy extenal resources
+  paramValues = await copyLocalResources(template.parameters, paramValues, tmpDir);
+
+  const html = renderTemplateToHtml(template, paramValues, resolution);
 
   // Write filled template
   const htmlPath = `${tmpDir}/content.html`;
