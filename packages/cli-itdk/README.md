@@ -54,20 +54,14 @@ At the bottom of the viewer, a sample command line lets you generate the corresp
 
 ## Generate
 
-### Image template development kit / Viewer
-
-While creating your template, you might want to create an image, just to make sure you get the expected outcome.
-For this, use the command line displayed by the viewer itself.
-
 ### Command line
 
-When your template is ready and you want to integrate it to your CI/CD, use the `create-img` tool:
+Create images from the command line with `create-img`:
 
     npm install -g create-img
-    create-img path/top/resoc.manifest.json -o myImage.jpg --params title="A picture is worth a thousand words" mainImageUrl="https://resoc.io/assets/img/demo/photos/pexels-photo-371589.jpeg" textColor="#ffffff" backgroundColor="#20552a" resoc_imageWidth=1200 resoc_imageHeight=630
+    create-img path/top/resoc.manifest.json -o output-image.jpg --params title="A picture is worth a thousand words" mainImageUrl="https://resoc.io/assets/img/demo/photos/pexels-photo-371589.jpeg" textColor="#ffffff" backgroundColor="#20552a" -w 1200 -h 630
 
-As this tool has the same interface as the image template development kit, feel free to start from a command line
-dumped by the viewer.
+Note that the viewer displays a sample command line you can copy and edit.
 
 ### API
 

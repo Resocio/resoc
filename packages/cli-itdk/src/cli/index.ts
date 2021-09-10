@@ -5,7 +5,6 @@ import program from 'commander'
 import { copyTemplate, directoryNotEmpty } from './create-template';
 import { error, log, logDone, newLine, notice, success, warn } from './log';
 import { viewTemplate } from './view-template';
-import { compileTemplate, loadLocalTemplate, parseParameters } from '@resoc/create-img';
 import { DefaultManifestName, FacebookOpenGraph } from '@resoc/core';
 
 const runCommand = async () => {
@@ -63,27 +62,6 @@ const runCommand = async () => {
     .action(async (templatePath, args) => {
       const path = templatePath || `./${DefaultManifestName}`;
       await viewTemplate(path);
-    });
-
-  program
-    .command('create [manifest-path]')
-    .description('Create and image base on an image template')
-    .option('-p, --params <parameters...>', 'Parameter values, with <name>=<value> format')
-    .option('-w, --width <width>', 'output image width', FacebookOpenGraph.width.toString())
-    .option('-h, --height <height>', 'output image height', FacebookOpenGraph.height.toString())
-    .option('-o, --output <imagePath>', 'Output image file', './output.png')
-    .action(async (manifestPath, options) => {
-      log(warn(`Creating image ${options.output} (${options.width}x${options.height}) based on template ${manifestPath}`));
-      const template = await loadLocalTemplate(manifestPath);
-      const paramValues = parseParameters(template.parameters, options.params);
-      await compileTemplate(
-        template,
-        paramValues,
-        { width: options.width, height: options.height },
-        options.output,
-        path.resolve(path.dirname(manifestPath))
-      );
-      logDone();
     });
 
   log(notice('Resoc Image Template Development Kit'));
