@@ -113,7 +113,6 @@ const TemplatePresentation = (props: TemplatePresentationProps) => {
             Create an image
           </Card.Title>
           <CreateCommandLine
-            template={props.template}
             values={props.values}
             manifestPath={props.manifestPath}
           />

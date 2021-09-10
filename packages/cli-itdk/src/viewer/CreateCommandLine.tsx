@@ -6,7 +6,6 @@ import copy from 'copy-text-to-clipboard';
 
 export type CreateCommandLineProps = {
   manifestPath: string;
-  template: ImageTemplate;
   values: ParamValues;
 };
 
@@ -41,10 +40,10 @@ const CreateCommandLine = (props: CreateCommandLineProps) => {
   const [ imageExt, setImageExt ] = useState<'jpg' | 'png'>('jpg');
   const [ platform, setPlatform ] = useState<'facebook' | 'twitter'>('facebook');
 
-  const outputFile = `myImage.${imageExt}`;
+  const outputFile = `output-image.${imageExt}`;
   const dims = platform === 'facebook' ? FacebookOpenGraph : TwitterCard;
   const commandLine =
-    `npx itdk create ${props.manifestPath} -o ${outputFile} --params ${paramValuesToCommandLine(props.values)} -w ${dims.width} -h ${dims.height}`;
+    `npx create-img ${props.manifestPath} -o ${outputFile} --params ${paramValuesToCommandLine(props.values)} -w ${dims.width} -h ${dims.height}`;
 
   return (
     <Wrapper>
