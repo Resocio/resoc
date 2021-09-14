@@ -1,5 +1,12 @@
-import { ImageTemplate, ImageResolution, loadRemoteTemplate, ParamValues, renderTemplateToHtml, TemplateParam, ParamType } from '@resoc/core'
-import puppeteer from 'puppeteer'
+import {
+  ImageTemplate,
+  ImageResolution,
+  loadRemoteTemplate,
+  ParamValues,
+  renderTemplateToHtml,
+  TemplateParam,
+  ParamType
+} from '@resoc/core'
 import { promises as fs } from 'fs'
 import path from 'path'
 import os from 'os'
@@ -8,9 +15,14 @@ import { loadLocalTemplate } from './local'
 import { imageFingerprint } from './fingerprint'
 import Mustache from 'mustache'
 import { v4 as uuidv4 } from 'uuid'
+import { convertUrlToImage } from './puppeteer'
+
+import type puppeteer from 'puppeteer'
+import type { Browser } from 'puppeteer'
 
 type LocalTemplateOptions = {
-  cache: boolean;
+  cache?: boolean;
+  browser?: Browser
 };
 
 export const fileExists = async (path: string): Promise<boolean> => {
@@ -50,12 +62,13 @@ export const createImage = async (
 
   const template = await loadLocalTemplate(templateManifestPath);
 
-  await compileTemplate(
+  await createImageFromTemplate(
     template,
     paramValues,
     resolution,
     imagePath,
-    templateDir
+    templateDir,
+    options?.browser
   );
 
   return imagePath;
@@ -76,17 +89,46 @@ export const isLocalResource = (url: string): boolean => {
 const copyLocalResources = async (parameters: TemplateParam[], values: ParamValues, tmpDir: string): Promise<ParamValues> => {
   const newValues = Object.assign({}, values);
   for (const param of parameters) {
-    const url = values[param.name];
-    if (param.type === ParamType.ImageUrl && isLocalResource(url)) {
-      const dest = `${tmpDir}/${uuidv4()}-${path.basename(url)}`;
-      await fs.copyFile(url, dest);
+    const value = values[param.name];
+    if (param.type === ParamType.ImageUrl && value && isLocalResource(value)) {
+      const dest = `${tmpDir}/${uuidv4()}-${path.basename(value)}`;
+      await fs.copyFile(value, dest);
       newValues[param.name] = dest;
     }
   }
   return newValues;
 };
 
-export const createImageFromTemplate = async (template: ImageTemplate, paramValues: ParamValues, resolution: ImageResolution, imagePath: string, resourcePath?: string): Promise<void> => {
+export const createImageFromTemplate = async (
+  template: ImageTemplate, paramValues: ParamValues, resolution: ImageResolution, imagePath: string, resourcePath?: string, browser?: Browser
+): Promise<void> => {
+  const htmlPath = await renderLocalTemplate(template, paramValues, resolution, resourcePath);
+
+  await convertUrlToImage(
+    `file:///${htmlPath}`, {
+      path: imagePath,
+      quality: 80,
+      fullPage: true
+    },
+    browser
+  );
+};
+
+export const createAnyImageFromTemplate = async (
+  template: ImageTemplate, paramValues: ParamValues, resolution: ImageResolution, outputOptions: puppeteer.ScreenshotOptions, resourcePath?: string, browser?: Browser
+): Promise<string | Buffer | void> => {
+  const htmlPath = renderLocalTemplate(template, paramValues, resolution, resourcePath);
+  return convertUrlToImage(`file:///${htmlPath}`, outputOptions, browser);
+};
+
+// Old name
+export const compileTemplate = createImageFromTemplate;
+
+/**
+ * Turn a template and values into a local HTML file. The resources are copied locally, so the HTML can be opened as is by a browser.
+ * @returns The path to the HTML file
+ */
+export const renderLocalTemplate = async (template: ImageTemplate, paramValues: ParamValues, resolution: ImageResolution, resourcePath?: string): Promise<string> => {
   const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), 'resoc-compile-'));
 
   // Copy extenal resources
@@ -106,29 +148,5 @@ export const createImageFromTemplate = async (template: ImageTemplate, paramValu
     );
   }
 
-  await urlToImage(
-    `file:///${htmlPath}`,
-    imagePath
-  );
-}
-
-// Old name
-export const compileTemplate = createImageFromTemplate;
-
-export const urlToImage = async (url: string, outputPath: string): Promise<void> => {
-  const browser = await puppeteer.launch({
-    args: ['--no-sandbox', '--disable-setuid-sandbox'],
-  });
-  const page = await browser.newPage();
-  // Wait until there are no network connexion for 500ms
-  await page.goto(url, {waitUntil: [
-    'networkidle0', 'domcontentloaded', 'load'
-  ]});
-  const output = outputPath;
-  await page.screenshot({
-    path: output,
-    fullPage: true
-  });
-
-  await browser.close();
+  return htmlPath;
 };
