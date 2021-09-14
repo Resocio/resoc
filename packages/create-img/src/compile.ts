@@ -1,6 +1,6 @@
 import { ImageTemplate, ImageResolution, loadRemoteTemplate, ParamValues, renderTemplateToHtml, TemplateParam, ParamType } from '@resoc/core'
 import puppeteer from 'puppeteer'
-import fs from 'fs/promises'
+import { promises as fs } from 'fs'
 import path from 'path'
 import os from 'os'
 import copy from 'recursive-copy'

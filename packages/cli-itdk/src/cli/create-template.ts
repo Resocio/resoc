@@ -1,4 +1,4 @@
-import fs from 'fs/promises'
+import { promises as fs } from 'fs'
 import copy from 'copy'
 
 export const copyTemplate = async (dir: string): Promise<void> => {

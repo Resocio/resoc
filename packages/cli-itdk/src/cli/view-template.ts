@@ -1,5 +1,5 @@
 import path from "path";
-import fs from 'fs/promises'
+import { promises as fs } from 'fs'
 import os from 'os'
 import { log, newLine, notice, success, warn } from "./log";
 import opener from 'opener'
