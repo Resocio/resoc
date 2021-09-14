@@ -2,7 +2,7 @@
 
 import path from 'path'
 import { program } from 'commander'
-import { cachedImageName, compileTemplate, fileExists, loadLocalTemplate, parseParameters } from '@resoc/create-img';
+import { cachedImageName, createImageFromTemplate, fileExists, loadLocalTemplate, parseParameters } from '@resoc/create-img';
 import { FacebookOpenGraph } from '@resoc/core';
 
 const runCompiler = async () => {
@@ -33,7 +33,7 @@ const runCompiler = async () => {
         }
       }
 
-      await compileTemplate(
+      await createImageFromTemplate(
         template,
         paramValues,
         { width: options.width, height: options.height },

@@ -28,7 +28,7 @@ export const cachedImageName = async (templateDir: string, values: ParamValues, 
   return Mustache.render(imagePath, { hash });
 };
 
-export const compileLocalTemplate = async (
+export const createImage = async (
   templateManifestPath: string,
   paramValues: ParamValues,
   resolution: ImageResolution,
@@ -61,6 +61,9 @@ export const compileLocalTemplate = async (
   return imagePath;
 };
 
+// Old name
+export const compileLocalTemplate = createImage;
+
 export const isLocalResource = (url: string): boolean => {
   const up = url.toLowerCase();
   return (
@@ -83,7 +86,7 @@ const copyLocalResources = async (parameters: TemplateParam[], values: ParamValu
   return newValues;
 };
 
-export const compileTemplate = async (template: ImageTemplate, paramValues: ParamValues, resolution: ImageResolution, imagePath: string, resourcePath?: string): Promise<void> => {
+export const createImageFromTemplate = async (template: ImageTemplate, paramValues: ParamValues, resolution: ImageResolution, imagePath: string, resourcePath?: string): Promise<void> => {
   const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), 'resoc-compile-'));
 
   // Copy extenal resources
@@ -108,6 +111,9 @@ export const compileTemplate = async (template: ImageTemplate, paramValues: Para
     imagePath
   );
 }
+
+// Old name
+export const compileTemplate = createImageFromTemplate;
 
 export const urlToImage = async (url: string, outputPath: string): Promise<void> => {
   const browser = await puppeteer.launch({
