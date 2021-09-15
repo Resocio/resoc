@@ -47,7 +47,7 @@ export const viewTemplate = async (manifestPath: string, facebookModelUrl?: stri
         templateDir,
         manifestName,
         facebookModelUrl: rawModuleUrlToViewerUrl(facebookModelUrl, FACEBOOK_MODEL_PREFIX),
-        twitterModelUrl: rawModuleUrlToViewerUrl(facebookModelUrl, TWITTER_MODEL_PREFIX),
+        twitterModelUrl: rawModuleUrlToViewerUrl(twitterModelUrl, TWITTER_MODEL_PREFIX),
       }));
       return;
     }
