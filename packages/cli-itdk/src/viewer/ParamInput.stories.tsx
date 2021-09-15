@@ -38,3 +38,14 @@ Choice.args = {
     demoValue: "First"
   }
 };
+
+export const ObjectList = Template.bind({});
+ObjectList.args = {
+  param: {
+    name: 'myList',
+    type: ParamType.ObjectList,
+    demoValue: [
+      { a: '5', b: '9' }, { a: '8', b: '0' }
+    ]
+  }
+};

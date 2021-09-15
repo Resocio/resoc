@@ -1,6 +1,6 @@
 import React from 'react'
 import { Form } from 'react-bootstrap';
-import { ParamValues, TemplateParam } from '@resoc/core';
+import { ParamType, ParamValue, ParamValues, TemplateParam } from '@resoc/core';
 import ParamInput from './ParamInput';
 
 export type TemplateParametersProps = {
@@ -9,6 +9,10 @@ export type TemplateParametersProps = {
   onChange: (newValues: ParamValues) => void;
 };
 
+const valueToString = (param: TemplateParam, value: ParamValue): string => (
+  (param.type === ParamType.ObjectList) ? JSON.stringify(value) : value.toString()
+);
+
 const TemplateParameters = (props: TemplateParametersProps) => {
   return (
     <Form>
@@ -16,7 +20,7 @@ const TemplateParameters = (props: TemplateParametersProps) => {
         <div key={param.name} className="mb-3">
           <ParamInput
             param={param}
-            value={props.values[param.name]}
+            value={valueToString(param, props.values[param.name])}
             onChange={(v) => {
               const newValues = Object.assign({}, props.values);
               newValues[param.name] = v;

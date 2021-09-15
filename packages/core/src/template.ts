@@ -45,7 +45,8 @@ export enum ParamType {
   String = 'string',
   Color = 'color',
   ImageUrl = 'imageUrl',
-  Choice = 'choice'
+  Choice = 'choice',
+  ObjectList = 'objectList'
 };
 
 export type ParamChoice = {
@@ -53,13 +54,15 @@ export type ParamChoice = {
   label?: string;
 };
 
+export type ParamValue = string | Object[];
+
 export type TemplateParam = {
   name: string;
   label?: string;
   type: ParamType;
   values?: ParamChoice[];
-  demoValue: string;
-  defaultValue?: string;
+  demoValue: ParamValue;
+  defaultValue?: ParamValue;
 };
 
 export interface ImageTemplate {
@@ -67,7 +70,7 @@ export interface ImageTemplate {
   parameters: TemplateParam[];
 };
 
-export type ParamValues = { [ name: string ]: string };
+export type ParamValues = { [ name: string ]: ParamValue };
 
 export type ImageResolution = {
   width: number;
@@ -137,10 +140,18 @@ export const validateParamValue = (paramSpec: TemplateParam, paramValue: string)
       if (paramSpec.values && !paramSpec.values.map(v => v.value).includes(paramValue)) {
         throw `Invalid value "${paramValue}" for ${paramSpec.label }. Must be one of ${paramSpec.values.join(', ')}`;
       }
+      return;
+    case(ParamType.ObjectList):
+      parseObjectListValue(paramValue);
+      return;
   }
 };
 
 export const paramLabel = (param: TemplateParam): string => (
   // See https://stackoverflow.com/questions/4149276/how-to-convert-camelcase-to-camel-case#answer-4149393
   param.label || param.name.replace(/([A-Z])/g, ' $1').replace(/^./, function(str){ return str.toUpperCase(); })
+);
+
+export const parseObjectListValue = (value: string): Object[] => (
+  JSON.parse(value)
 );

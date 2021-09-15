@@ -1,12 +1,12 @@
 import React, { ReactFragment } from 'react'
 import { Form } from 'react-bootstrap';
-import { paramLabel, TemplateParam } from '@resoc/core';
+import { paramLabel, ParamValue, parseObjectListValue, TemplateParam } from '@resoc/core';
 import { ParamType } from '@resoc/core';
 
 export type ParamInputProps = {
   param: TemplateParam;
   value: string;
-  onChange: (value: string) => void;
+  onChange: (value: ParamValue) => void;
 };
 
 const ParamInput = (props: ParamInputProps) => {
@@ -32,6 +32,20 @@ const ParamInput = (props: ParamInputProps) => {
         </Form.Select>
       );
       break;
+    case(ParamType.ObjectList):
+      field = (
+        <Form.Control
+          type={toHtmlType(props.param.type)}
+          placeholder={props.param.defaultValue?.toString()}
+          onChange={(e) => {
+            props.onChange(
+              parseObjectListValue(e.target.value)
+            )
+          }}
+          value={props.value}
+        />
+      );
+      break;
     case(ParamType.ImageUrl):
     case(ParamType.Color):
     case(ParamType.String):
@@ -39,7 +53,7 @@ const ParamInput = (props: ParamInputProps) => {
       field = (
         <Form.Control
           type={toHtmlType(props.param.type)}
-          placeholder={props.param.defaultValue}
+          placeholder={props.param.defaultValue?.toString()}
           onChange={(e) => props.onChange(e.target.value)}
           value={props.value}
         />
@@ -62,6 +76,7 @@ const toHtmlType = (type: ParamType): string => {
       return 'color';
     case(ParamType.String):
     case(ParamType.Choice):
+    case(ParamType.ObjectList):
     default:
       return 'text';
   }
