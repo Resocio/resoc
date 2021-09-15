@@ -10,8 +10,6 @@ export type RichPreviewProps = {
 const RichPreview = (props: RichPreviewProps) => {
   const [ opacity, setOpacity ] = useState<number>(1);
 
-  console.log(opacity);
-
   return (
     <div>
       {props.backgroundImageUrl && (
