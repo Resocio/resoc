@@ -78,7 +78,7 @@ const TemplateApp = (props: TemplateAppProps) => {
           }}
           facebookModelUrl={props.facebookModelUrl}
           twitterModelUrl={props.twitterModelUrl}
-  />
+        />
       )}
     </div>
   );
