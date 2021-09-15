@@ -30,17 +30,18 @@ type PreviewProps = {
 const Preview = (props: PreviewProps) => (
   <div>
     <Card.Subtitle>{props.title}</Card.Subtitle>
-    <TemplatePreview
-      template={props.template}
-      parameters={props.parameters}
-      width={WIDTH}
-      height={WIDTH / props.ratio}
-    />
+    <div className="border">
+      <TemplatePreview
+        template={props.template}
+        parameters={props.parameters}
+        width={WIDTH}
+        height={WIDTH / props.ratio}
+      />
+    </div>
   </div>
 );
 
-const Wrapper = styled.div`
-`;
+const Wrapper = styled.div``;
 
 const PreviewsParamsWrapper = styled.div`
   display: flex;
