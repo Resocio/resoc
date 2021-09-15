@@ -19,6 +19,8 @@ const AppLoader = () => {
         manifestUrl={`/${env.manifestName}`}
         manifestPath={env.manifestPath}
         templateDir={env.templateDir}
+        facebookModelUrl={env.facebookModelUrl}
+        twitterModelUrl={env.twitterModelUrl}
       />
     )
   } else {

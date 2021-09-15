@@ -2,16 +2,18 @@ import React, { useState } from 'react'
 import { Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { ImageTemplate, ParamValues, TemplateParam } from '@resoc/core';
 import ParamInput from './ParamInput';
-import TemplatePreview from './TemplatePreview';
 import styled from 'styled-components';
 import CreateCommandLine from './CreateCommandLine';
 import TemplateParameters from './TemplateParameters';
+import RichPreview from './RichPreview';
 
 export type TemplatePresentationProps = {
   template: ImageTemplate;
   parameters?: TemplateParam[];
   values: ParamValues;
   manifestPath: string;
+  facebookModelUrl?: string;
+  twitterModelUrl?: string;
   onChange: (newValues: ParamValues) => void;
 };
 
@@ -25,19 +27,19 @@ type PreviewProps = {
   template: ImageTemplate;
   parameters: ParamValues;
   ratio: number;
+  backgroundImageUrl?: string;
 };
 
 const Preview = (props: PreviewProps) => (
   <div>
     <Card.Subtitle>{props.title}</Card.Subtitle>
-    <div className="border">
-      <TemplatePreview
-        template={props.template}
-        parameters={props.parameters}
-        width={WIDTH}
-        height={WIDTH / props.ratio}
-      />
-    </div>
+    <RichPreview
+      template={props.template}
+      parameters={props.parameters}
+      width={WIDTH}
+      height={WIDTH / props.ratio}
+      backgroundImageUrl={props.backgroundImageUrl}
+    />
   </div>
 );
 
@@ -79,6 +81,7 @@ const TemplatePresentation = (props: TemplatePresentationProps) => {
                 template={props.template}
                 parameters={props.values}
                 ratio={RATIO_FACEBOOK}
+                backgroundImageUrl={props.facebookModelUrl}
               />
 
               <Preview
@@ -86,6 +89,7 @@ const TemplatePresentation = (props: TemplatePresentationProps) => {
                 template={props.template}
                 parameters={props.values}
                 ratio={RATIO_TWTTER}
+                backgroundImageUrl={props.twitterModelUrl}
               />
             </PreviewsWrapper>
           </Card.Body>

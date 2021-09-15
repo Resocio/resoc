@@ -9,6 +9,8 @@ export type TemplateAppProps = {
   manifestUrl: string;
   templateDir: string;
   manifestPath: string;
+  facebookModelUrl?: string;
+  twitterModelUrl?: string;
 };
 
 const TemplateApp = (props: TemplateAppProps) => {
@@ -74,6 +76,8 @@ const TemplateApp = (props: TemplateAppProps) => {
           onChange={(newValues) => {
             setValues(newValues);
           }}
+          facebookModelUrl={props.facebookModelUrl}
+          twitterModelUrl={props.twitterModelUrl}
   />
       )}
     </div>
