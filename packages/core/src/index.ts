@@ -8,7 +8,7 @@ export {
     TwitterCard
 } from "./template";
 
-export { loadRemoteTemplate } from "./remote";
+export { loadRemoteTemplate, isAbsoluteUrl } from "./remote";
 
 export type {
     ImageTemplate,
