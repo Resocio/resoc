@@ -7,8 +7,24 @@ import WebSocket from 'ws';
 import watch from 'node-watch'
 import express from "express";
 import serveStatic from "serve-static";
+import { isAbsoluteUrl } from "@resoc/core";
 
-export const viewTemplate = async (manifestPath: string) => {
+const FACEBOOK_MODEL_PREFIX = 'facebook-model-42ffe6-';
+const TWITTER_MODEL_PREFIX  = 'twitter-model-ae29c0-';
+
+const rawModuleUrlToViewerUrl = (modelUrl: string | undefined, prefix: string) => {
+  if (!modelUrl) {
+    return null;
+  }
+
+  return isAbsoluteUrl(modelUrl) ? modelUrl : modelUrlToFileName(modelUrl, prefix);
+};
+
+const modelUrlToFileName = (modelUrl: string | undefined, prefix: string): string | null => (
+  modelUrl ? `${prefix}-${path.basename(modelUrl)}` : null
+);
+
+export const viewTemplate = async (manifestPath: string, facebookModelUrl?: string, twitterModelUrl?: string) => {
   const viewerDir = path.normalize(`${__dirname}/../../viewer`);
   manifestPath = path.resolve(path.normalize(manifestPath));
   const manifestName = path.basename(manifestPath);
@@ -29,15 +45,33 @@ export const viewTemplate = async (manifestPath: string) => {
       res.end(JSON.stringify({
         manifestPath,
         templateDir,
-        manifestName
+        manifestName,
+        facebookModelUrl: rawModuleUrlToViewerUrl(facebookModelUrl, FACEBOOK_MODEL_PREFIX),
+        twitterModelUrl: rawModuleUrlToViewerUrl(facebookModelUrl, TWITTER_MODEL_PREFIX),
       }));
       return;
     }
 
     next();
   });
+
+  // Facebook and Twitter models
+  app.use(function (req, res, next) {
+    if (facebookModelUrl && req?.url === `/${modelUrlToFileName(facebookModelUrl, FACEBOOK_MODEL_PREFIX)}`) {
+      res.sendFile(path.resolve(facebookModelUrl));
+      return;
+    }
+
+    if (twitterModelUrl && req?.url === `/${modelUrlToFileName(twitterModelUrl, TWITTER_MODEL_PREFIX)}`) {
+      res.sendFile(path.resolve(twitterModelUrl));
+      return;
+    }
+
+    next();
+  });
+
   app.use(serveStatic(viewerDir));
-  app.use(serveStatic(templateDir))
+  app.use(serveStatic(templateDir));
   app.listen(port);
 
   // Changes

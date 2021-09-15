@@ -58,10 +58,12 @@ const runCommand = async () => {
 
   program
     .command('view [manifest-path]')
+    .option('-fm, --facebook-model <path-or-url>', 'display an image below the Facebook template preview')
+    .option('-tm, --twitter-model <path-or-url>', 'display an image below the Twitter template preview')
     .description('Display an image template in your browser, and refresh as you edit it')
     .action(async (templatePath, args) => {
       const path = templatePath || `./${DefaultManifestName}`;
-      await viewTemplate(path);
+      await viewTemplate(path, args.facebookModel, args.twitterModel);
     });
 
   log(notice('Resoc Image Template Development Kit'));
