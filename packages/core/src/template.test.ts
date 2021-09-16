@@ -1,4 +1,4 @@
-import { assignResolutionToParamerters, paramLabel, ParamType, paramValueToString, parseTemplateManifestParams, renderRawTemplate, stringToParamValue, validateParamValue } from './template'
+import { assignResolutionToParamerters, demoParamValues, paramLabel, ParamType, paramValueToString, parseTemplateManifestParams, renderRawTemplate, stringToParamValue, validateParamValue } from './template'
 
 test('renderRawTemplate', () => {
   expect(renderRawTemplate(
@@ -116,4 +116,15 @@ test('paramValueToString', () => {
   }, [ { x: "1", y: "2"}, { a: "98", b: "99"} ])).toEqual(
     '[{"x":"1","y":"2"},{"a":"98","b":"99"}]'
   );
+});
+
+
+test('demoParamValues', () => {
+  expect(demoParamValues([
+    { name: 'obj', type: ParamType.ObjectList, demoValue: [ { a: "1", b: "2"} ] },
+    { name: 'txt', type: ParamType.String, demoValue: 'Foo' }
+  ])).toEqual({
+    txt: 'Foo',
+    obj: [ { a: "1", b: "2"} ]
+  });
 });
