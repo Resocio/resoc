@@ -13,10 +13,14 @@ export type TemplateAppProps = {
   twitterModelUrl?: string;
 };
 
+type ParametersAndValues = {
+  parameters: TemplateParam[];
+  values: ParamValues;
+}
+
 const TemplateApp = (props: TemplateAppProps) => {
   const [template, setTemplate] = useState<ImageTemplate | null>(null);
-  const [parameters, setParameters] = useState<TemplateParam[] | null>(null);
-  const [values, setValues] = useState<ParamValues | null>(null);
+  const [parametersAndValues, setParametersAndValues] = useState<ParametersAndValues | null>(null);
 
   const [error, setError] = useState<Error | null>(null);
   const [updateListenerStarted, setUpdateListenerStarted] = useState<boolean>(false);
@@ -28,11 +32,13 @@ const TemplateApp = (props: TemplateAppProps) => {
           const newTemplate = await loadRemoteTemplate(props.manifestUrl);
           setTemplate(newTemplate);
           if (
-            !parameters ||
-            JSON.stringify(newTemplate.parameters) !== JSON.stringify(parameters)
+            !parametersAndValues?.parameters ||
+            JSON.stringify(newTemplate.parameters) !== JSON.stringify(parametersAndValues.parameters)
           ) {
-            setParameters(newTemplate.parameters);
-            setValues(demoParamValues(newTemplate.parameters));
+            setParametersAndValues({
+              parameters: newTemplate.parameters,
+              values: demoParamValues(newTemplate.parameters)
+            });
           }
         }
         catch(e) {
@@ -67,14 +73,17 @@ const TemplateApp = (props: TemplateAppProps) => {
         manifestPath={props.manifestPath}
       />
 
-      {template && parameters && values && (
+      {template && parametersAndValues && (
         <TemplatePresentation
           template={template}
-          parameters={parameters}
-          values={values}
+          parameters={parametersAndValues.parameters}
+          values={parametersAndValues.values}
           manifestPath={props.manifestPath}
           onChange={(newValues) => {
-            setValues(newValues);
+            setParametersAndValues({
+              parameters: parametersAndValues.parameters,
+              values: newValues
+            });
           }}
           facebookModelUrl={props.facebookModelUrl}
           twitterModelUrl={props.twitterModelUrl}
