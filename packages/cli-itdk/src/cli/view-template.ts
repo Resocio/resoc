@@ -26,7 +26,7 @@ const modelUrlToFileName = (modelUrl: string | undefined, prefix: string): strin
 
 export const viewTemplate = async (manifestPath: string, facebookModelUrl?: string, twitterModelUrl?: string) => {
   const viewerDir = path.normalize(`${__dirname}/../../viewer`);
-  manifestPath = path.resolve(path.normalize(manifestPath));
+  manifestPath = path.normalize(manifestPath);
   const manifestName = path.basename(manifestPath);
   const templateDir = path.dirname(manifestPath);
   const serverDir = await fs.mkdtemp(path.join(os.tmpdir(), 'resoc-view-server-'));
