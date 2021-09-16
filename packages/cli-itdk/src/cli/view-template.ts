@@ -43,7 +43,7 @@ export const viewTemplate = async (manifestPath: string, facebookModelUrl?: stri
     if (req.url && req.url === '/env.json') {
       res.setHeader('Content-Type', 'application/json');
       res.end(JSON.stringify({
-        manifestPath,
+        manifestPath: manifestPath.replace(/\\/g, '/'),
         templateDir,
         manifestName,
         facebookModelUrl: rawModuleUrlToViewerUrl(facebookModelUrl, FACEBOOK_MODEL_PREFIX),
