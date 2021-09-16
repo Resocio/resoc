@@ -9,10 +9,6 @@ export type TemplateParametersProps = {
   onChange: (newValues: ParamValues) => void;
 };
 
-const valueToString = (param: TemplateParam, value: ParamValue): string => (
-  (param.type === ParamType.ObjectList) ? JSON.stringify(value) : value.toString()
-);
-
 const TemplateParameters = (props: TemplateParametersProps) => {
   return (
     <Form>
@@ -20,7 +16,7 @@ const TemplateParameters = (props: TemplateParametersProps) => {
         <div key={param.name} className="mb-3">
           <ParamInput
             param={param}
-            value={valueToString(param, props.values[param.name])}
+            value={props.values[param.name]}
             onChange={(v) => {
               const newValues: ParamValues = Object.assign({}, props.values);
               newValues[param.name] = v;
