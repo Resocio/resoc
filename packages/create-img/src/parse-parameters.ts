@@ -1,4 +1,4 @@
-import { ParamType, ParamValues, parseObjectListValue, TemplateParam } from "@resoc/core";
+import { ParamType, ParamValues, stringToParamValue, TemplateParam } from "@resoc/core";
 
 export const parseParameters = (specs: TemplateParam[], args: string[]): ParamValues => {
   const values: ParamValues = {};
@@ -16,7 +16,7 @@ export const parseParameters = (specs: TemplateParam[], args: string[]): ParamVa
       throw(`Unknown parameter ${name}`);
     }
 
-    values[name] = spec.type === ParamType.ObjectList ? parseObjectListValue(value) : value;
+    values[name] = stringToParamValue(spec, value);
   });
 
   return values;

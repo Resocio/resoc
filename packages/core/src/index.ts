@@ -4,7 +4,8 @@ export {
     demoParamValues,
     paramLabel,
     validateParamValue,
-    parseObjectListValue,
+    stringToParamValue,
+    paramValueToString,
     FacebookOpenGraph,
     TwitterCard
 } from "./template";

@@ -44,8 +44,7 @@ ObjectList.args = {
   param: {
     name: 'myList',
     type: ParamType.ObjectList,
-    demoValue: [
-      { a: '5', b: '9' }, { a: '8', b: '0' }
-    ]
-  }
+    demoValue: [ { a: '5', b: '9' }, { a: '8', b: '0' } ]
+  },
+  value: [ { a: '2', b: '7' }, { a: '0', b: '6' } ]
 };

@@ -126,25 +126,8 @@ export const parseTemplateManifestParams = (manifest: any): TemplateParam[] => {
 /**
  * Throw an error when the value is not correct.
  */
-export const validateParamValue = (paramSpec: TemplateParam, paramValue: string) => {
-  switch(paramSpec.type) {
-    case(ParamType.String):
-      return;
-    case(ParamType.Color):
-      // TODO: Check color format
-      return;
-    case(ParamType.ImageUrl):
-      // TODO: Check basic format
-      return;
-    case(ParamType.Choice):
-      if (paramSpec.values && !paramSpec.values.map(v => v.value).includes(paramValue)) {
-        throw `Invalid value "${paramValue}" for ${paramSpec.label }. Must be one of ${paramSpec.values.join(', ')}`;
-      }
-      return;
-    case(ParamType.ObjectList):
-      parseObjectListValue(paramValue);
-      return;
-  }
+export const validateParamValue = (param: TemplateParam, value: string) => {
+  stringToParamValue(param, value);
 };
 
 export const paramLabel = (param: TemplateParam): string => (
@@ -152,6 +135,31 @@ export const paramLabel = (param: TemplateParam): string => (
   param.label || param.name.replace(/([A-Z])/g, ' $1').replace(/^./, function(str){ return str.toUpperCase(); })
 );
 
-export const parseObjectListValue = (value: string): Object[] => (
-  JSON.parse(value)
-);
+export const stringToParamValue = (param: TemplateParam, value: string): ParamValue => {
+  switch(param.type) {
+    case(ParamType.Choice):
+      if (param.values && !param.values.map(v => v.value).includes(value)) {
+        throw `Invalid value "${value}" for ${param.label }. Must be one of ${param.values.join(', ')}`;
+      }
+      return value;
+
+    case(ParamType.ObjectList):
+      return JSON.parse(value);
+
+    case(ParamType.String):
+    case(ParamType.Color): // TODO: Check color format
+    case(ParamType.ImageUrl): // TODO: Check basic format
+    default:
+      return value;
+  }
+};
+
+export const paramValueToString = (param: TemplateParam, value: ParamValue): string => {
+  switch(param.type) {
+    case(ParamType.ObjectList):
+      return JSON.stringify(value);
+
+    default:
+      return value.toString();
+  }
+};

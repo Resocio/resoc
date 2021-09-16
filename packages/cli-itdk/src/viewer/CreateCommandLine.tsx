@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { ImageTemplate, ParamValues, FacebookOpenGraph, TwitterCard } from '@resoc/core';
+import { ImageTemplate, ParamValues, FacebookOpenGraph, TwitterCard, TemplateParam, paramValueToString } from '@resoc/core';
 import { Alert, Button, Col, Form } from 'react-bootstrap';
 import styled from 'styled-components';
 import copy from 'copy-text-to-clipboard';
 
 export type CreateCommandLineProps = {
   manifestPath: string;
+  parameters: TemplateParam[];
   values: ParamValues;
 };
 
@@ -32,8 +33,8 @@ const CommandLine = styled.pre`
 const CopyButton = styled(Button)`
 `;
 
-export const paramValuesToCommandLine = (paramValues: ParamValues): string => (
-  Object.keys(paramValues).map(v => `${v}="${paramValues[v]}"`).join(' ')
+export const paramValuesToCommandLine = (parameters: TemplateParam[], values: ParamValues): string => (
+  parameters.map(p => `${p.name}="${paramValueToString(p, values[p.name]).replaceAll('"', '\\"')}"`).join(' ')
 );
 
 const CreateCommandLine = (props: CreateCommandLineProps) => {
@@ -43,7 +44,7 @@ const CreateCommandLine = (props: CreateCommandLineProps) => {
   const outputFile = `output-image.${imageExt}`;
   const dims = platform === 'facebook' ? FacebookOpenGraph : TwitterCard;
   const commandLine =
-    `npx create-img ${props.manifestPath} -o ${outputFile} --params ${paramValuesToCommandLine(props.values)} -w ${dims.width} -h ${dims.height}`;
+    `npx create-img ${props.manifestPath} -o ${outputFile} --params ${paramValuesToCommandLine(props.parameters, props.values)} -w ${dims.width} -h ${dims.height}`;
 
   return (
     <Wrapper>

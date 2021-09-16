@@ -1,23 +1,25 @@
 import React, { ReactFragment } from 'react'
 import { Form } from 'react-bootstrap';
-import { paramLabel, ParamValue, parseObjectListValue, TemplateParam } from '@resoc/core';
+import { paramLabel, ParamValue, paramValueToString, stringToParamValue, TemplateParam } from '@resoc/core';
 import { ParamType } from '@resoc/core';
 
 export type ParamInputProps = {
   param: TemplateParam;
-  value: string;
+  value?: ParamValue;
   onChange: (value: ParamValue) => void;
 };
 
 const ParamInput = (props: ParamInputProps) => {
   let field: ReactFragment;
 
+  const strValue = props.value ? paramValueToString(props.param, props.value) : '';
+
   switch(props.param.type) {
     case(ParamType.Choice):
       field = (
         <Form.Select
           aria-label={paramLabel(props.param)}
-          value={props.value}
+          value={strValue}
           onChange={(e) => {
             // Although e.target is not a FormControlElement, value field *does* exist
             const target: any = e.target;
@@ -37,12 +39,10 @@ const ParamInput = (props: ParamInputProps) => {
         <Form.Control
           type={toHtmlType(props.param.type)}
           placeholder={props.param.defaultValue?.toString()}
-          onChange={(e) => {
-            props.onChange(
-              parseObjectListValue(e.target.value)
-            )
-          }}
-          value={props.value}
+          onChange={(e) => props.onChange(
+            stringToParamValue(props.param, e.target.value)
+          )}
+          value={strValue}
         />
       );
       break;
@@ -54,8 +54,10 @@ const ParamInput = (props: ParamInputProps) => {
         <Form.Control
           type={toHtmlType(props.param.type)}
           placeholder={props.param.defaultValue?.toString()}
-          onChange={(e) => props.onChange(e.target.value)}
-          value={props.value}
+          onChange={(e) => props.onChange(
+            stringToParamValue(props.param, e.target.value)
+          )}
+          value={strValue}
         />
       );
   }

@@ -22,7 +22,7 @@ const TemplateParameters = (props: TemplateParametersProps) => {
             param={param}
             value={valueToString(param, props.values[param.name])}
             onChange={(v) => {
-              const newValues = Object.assign({}, props.values);
+              const newValues: ParamValues = Object.assign({}, props.values);
               newValues[param.name] = v;
               props.onChange(newValues);
             }}

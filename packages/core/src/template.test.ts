@@ -1,4 +1,4 @@
-import { assignResolutionToParamerters, paramLabel, ParamType, parseObjectListValue, parseTemplateManifestParams, renderRawTemplate, validateParamValue } from './template'
+import { assignResolutionToParamerters, paramLabel, ParamType, paramValueToString, parseTemplateManifestParams, renderRawTemplate, stringToParamValue, validateParamValue } from './template'
 
 test('renderRawTemplate', () => {
   expect(renderRawTemplate(
@@ -78,8 +78,42 @@ test('assignResolutionToParamerters', () => {
   });
 });
 
-test('parseObjectListValue', () => {
-  expect(parseObjectListValue('[ { "x": "1", "y": "2"}, { "a": "98", "b": "99"} ]')).toEqual([
+test('stringToParamValue', () => {
+  expect(stringToParamValue({
+    name: 'someText', type: ParamType.String, demoValue: 'Foo'
+  }, 'Lorem ipsum')).toEqual('Lorem ipsum');
+
+  expect(stringToParamValue({
+    name: 'theColor', type: ParamType.Color, demoValue: '#456789'
+  }, '#abcdef')).toEqual('#abcdef');
+
+  expect(stringToParamValue({
+    name: 'country', type: ParamType.Choice, values: [{ value: 'Spain' }, { value: 'France' }], demoValue: 'Spain'
+  }, 'France')).toEqual('France');
+
+  expect(() => stringToParamValue({
+    name: 'country', type: ParamType.Choice, values: [{ value: 'Spain' }, { value: 'France' }], demoValue: 'Spain'
+  }, 'Wakanda')).toThrowError();
+
+  expect(stringToParamValue({
+    name: 'obj', type: ParamType.ObjectList, demoValue: '[ { "a": "1", "b": "2"} ]'
+  }, '[ { "x": "1", "y": "2"}, { "a": "98", "b": "99"} ]')).toEqual([
     { x: "1", y: "2"}, { a: "98", b: "99"}
   ]);
+
+  expect(() => stringToParamValue({
+    name: 'obj', type: ParamType.ObjectList, demoValue: '[ { "a": "1", "b": "2"} ]'
+  }, 'Not JSON...')).toThrowError();
+});
+
+test('paramValueToString', () => {
+  expect(paramValueToString({
+    name: 'someText', type: ParamType.String, demoValue: 'Foo'
+  }, 'Lorem ipsum')).toEqual('Lorem ipsum');
+
+  expect(paramValueToString({
+    name: 'obj', type: ParamType.ObjectList, demoValue: '[ { "a": "1", "b": "2"} ]'
+  }, [ { x: "1", y: "2"}, { a: "98", b: "99"} ])).toEqual(
+    '[{"x":"1","y":"2"},{"a":"98","b":"99"}]'
+  );
 });
