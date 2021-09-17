@@ -8,6 +8,7 @@ import watch from 'node-watch'
 import express from "express";
 import serveStatic from "serve-static";
 import { isAbsoluteUrl } from "@resoc/core";
+import axios from "axios";
 
 const FACEBOOK_MODEL_PREFIX = 'facebook-model-42ffe6-';
 const TWITTER_MODEL_PREFIX  = 'twitter-model-ae29c0-';
@@ -25,11 +26,20 @@ const modelUrlToFileName = (modelUrl: string | undefined, prefix: string): strin
 );
 
 export const viewTemplate = async (manifestPath: string, facebookModelUrl?: string, twitterModelUrl?: string) => {
-  const viewerDir = path.normalize(`${__dirname}/../../viewer`);
-  manifestPath = path.normalize(manifestPath);
-  const manifestName = path.basename(manifestPath);
-  const templateDir = path.dirname(manifestPath);
-  const serverDir = await fs.mkdtemp(path.join(os.tmpdir(), 'resoc-view-server-'));
+  const localTemplate = !isAbsoluteUrl(manifestPath);
+
+  let manifestName = path.basename(manifestPath);
+  let templateDir: string | null = null;
+  let manifestBaseUrl: string | null = null;
+
+  if (localTemplate) {
+    manifestPath = path.normalize(manifestPath);
+    templateDir = path.dirname(manifestPath);
+    const serverDir = await fs.mkdtemp(path.join(os.tmpdir(), 'resoc-view-server-'));
+  }
+  else {
+    manifestBaseUrl = manifestPath.substr(0, manifestPath.lastIndexOf('/'));
+  }
 
   const port = 8080;
   const siteUrl = `http://localhost:${port}/`;
@@ -43,6 +53,7 @@ export const viewTemplate = async (manifestPath: string, facebookModelUrl?: stri
     if (req.url && req.url === '/env.json') {
       res.setHeader('Content-Type', 'application/json');
       res.end(JSON.stringify({
+        localTemplate: localTemplate,
         manifestPath: manifestPath.replace(/\\/g, '/'),
         templateDir,
         manifestName,
@@ -70,21 +81,43 @@ export const viewTemplate = async (manifestPath: string, facebookModelUrl?: stri
     next();
   });
 
-  app.use(serveStatic(viewerDir));
-  app.use(serveStatic(templateDir));
+  app.use(serveStatic(path.normalize(`${__dirname}/../../viewer`)));
+
+  if (localTemplate && templateDir) {
+    app.use(serveStatic(templateDir));
+  } else if (manifestBaseUrl) {
+    app.use(function (req, res, next) {
+      if (req.url) {
+        axios({
+          method: 'get',
+          url: `${manifestBaseUrl}${req.url}`,
+          responseType: 'stream'
+        }).then(function(response) {
+          response.data.pipe(res);
+        });
+        return;
+      }
+
+      next();
+    });
+  }
   app.listen(port);
 
   // Changes
-  const notifyChange = changeNotificationServer();
-  watch(templateDir, { recursive: true }, (evt, name) => {
-    log('Template changed, reload...');
-    notifyChange();
-  });
+  if (localTemplate && templateDir) {
+    const notifyChange = changeNotificationServer();
+    watch(templateDir, { recursive: true }, (evt, name) => {
+      log('Template changed, reload...');
+      notifyChange();
+    });
 
-  log(success('Done!') + ' Template available at ' + warn(siteUrl));
-  newLine();
-  log(`Edit your template files in ${warn(templateDir)} and see the changes in real time`);
-  newLine();
+    log(success('Done!') + ' Template available at ' + warn(siteUrl));
+    newLine();
+    log(`Edit your template files in ${warn(templateDir)} and see the changes in real time`);
+    newLine();
+  } else {
+
+  }
 
   opener(siteUrl);
 };

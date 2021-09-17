@@ -5,7 +5,6 @@ import ParamInput from './ParamInput';
 import styled from 'styled-components';
 import TemplateParameters from './TemplateParameters';
 import RichPreview from './RichPreview';
-import CreateImage from './create/CreateImage';
 
 export type TemplatePresentationProps = {
   template: ImageTemplate;
@@ -111,19 +110,6 @@ const TemplatePresentation = (props: TemplatePresentationProps) => {
           </PresCard>
         </ParamsContainer>
       </PreviewsParamsWrapper>
-
-      <Card className="mb-3">
-        <Card.Body>
-          <Card.Title>
-            Create an image
-          </Card.Title>
-          <CreateImage
-            parameters={parameters}
-            values={props.values}
-            manifestPath={props.manifestPath}
-          />
-        </Card.Body>
-      </Card>
     </Wrapper>
   );
 };

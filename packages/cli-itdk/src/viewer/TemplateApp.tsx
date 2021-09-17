@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { Alert } from 'react-bootstrap';
+import { Alert, Card } from 'react-bootstrap';
 import { demoParamValues, ImageTemplate, loadRemoteTemplate, ParamValues, TemplateParam } from '@resoc/core';
 import TemplatePresentation from './TemplatePresentation';
-import StarterAlert from './StarterAlert';
+import LocalStarterAlert from './alerts/LocalStarterAlert';
 import { waitForUpdates } from './Utils';
+import CreateImage from './create/CreateImage';
 
 export type TemplateAppProps = {
+  localTemplate: boolean;
   manifestUrl: string;
   templateDir: string;
   manifestPath: string;
@@ -49,7 +51,7 @@ const TemplateApp = (props: TemplateAppProps) => {
   }, [props.manifestUrl, template]);
 
   useEffect(() => {
-    if (!updateListenerStarted) {
+    if (props.localTemplate && !updateListenerStarted) {
       setUpdateListenerStarted(true);
       waitForUpdates(() => {
         // Force reload
@@ -68,26 +70,45 @@ const TemplateApp = (props: TemplateAppProps) => {
         </Alert>
       )}
 
-      <StarterAlert
-        templateDir={props.templateDir}
-        manifestPath={props.manifestPath}
-      />
+      {props.localTemplate && (
+        <LocalStarterAlert
+          templateDir={props.templateDir}
+          manifestPath={props.manifestPath}
+        />
+      )}
 
       {template && parametersAndValues && (
-        <TemplatePresentation
-          template={template}
-          parameters={parametersAndValues.parameters}
-          values={parametersAndValues.values}
-          manifestPath={props.manifestPath}
-          onChange={(newValues) => {
-            setParametersAndValues({
-              parameters: parametersAndValues.parameters,
-              values: newValues
-            });
-          }}
-          facebookModelUrl={props.facebookModelUrl}
-          twitterModelUrl={props.twitterModelUrl}
-        />
+        <>
+          <TemplatePresentation
+            template={template}
+            parameters={parametersAndValues.parameters}
+            values={parametersAndValues.values}
+            manifestPath={props.manifestPath}
+            onChange={(newValues) => {
+              setParametersAndValues({
+                parameters: parametersAndValues.parameters,
+                values: newValues
+              });
+            }}
+            facebookModelUrl={props.facebookModelUrl}
+            twitterModelUrl={props.twitterModelUrl}
+          />
+
+          {props.localTemplate && (
+            <Card className="mb-3">
+              <Card.Body>
+                <Card.Title>
+                  Create an image
+                </Card.Title>
+                <CreateImage
+                  parameters={parametersAndValues.parameters}
+                  values={parametersAndValues.values}
+                  manifestPath={props.manifestPath}
+                />
+              </Card.Body>
+            </Card>
+          )}
+        </>
       )}
     </div>
   );

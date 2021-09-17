@@ -16,6 +16,7 @@ const AppLoader = () => {
   if (env) {
     return (
       <TemplateApp
+        localTemplate={env.localTemplate}
         manifestUrl={`/${env.manifestName}`}
         manifestPath={env.manifestPath}
         templateDir={env.templateDir}

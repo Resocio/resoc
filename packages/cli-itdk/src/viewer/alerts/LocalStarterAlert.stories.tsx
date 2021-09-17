@@ -1,12 +1,12 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react';
 
-import StarterAlert, { StarterAlertProps } from './StarterAlert';
+import LocalStarterAlert, { LocalStarterAlertProps } from './LocalStarterAlert';
 import { ParamType } from '@resoc/core';
 
 export default {
-  title: 'StarterAlert',
-  component: StarterAlert,
+  title: 'alerts/LocalStarterAlert',
+  component: LocalStarterAlert,
   argTypes: {
     onChange: {
       action: 'clicked'
@@ -14,7 +14,7 @@ export default {
   }
 } as Meta;
 
-const Template: Story<StarterAlertProps> = (args) => <StarterAlert {...args} />;
+const Template: Story<LocalStarterAlertProps> = (args) => <LocalStarterAlert {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

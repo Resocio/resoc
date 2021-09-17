@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Alert } from 'react-bootstrap';
 
-export type StarterAlertProps = {
+export type LocalStarterAlertProps = {
   manifestPath: string;
   templateDir: string;
 };
 
-const StarterAlert = (props: StarterAlertProps) => {
+const LocalStarterAlert = (props: LocalStarterAlertProps) => {
   const [show, setShow] = useState(true);
 
   if (show) {
@@ -37,4 +37,4 @@ const StarterAlert = (props: StarterAlertProps) => {
   }
 };
 
-export default StarterAlert;
+export default LocalStarterAlert;
