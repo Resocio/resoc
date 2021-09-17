@@ -103,6 +103,10 @@ const copyLocalResources = async (parameters: TemplateParam[], values: ParamValu
   return newValues;
 };
 
+const isJpeg = (imagePath: string) => (
+  imagePath && imagePath.toLowerCase().endsWith('.jpg') || imagePath.toLowerCase().endsWith('.jpeg')
+)
+
 export const createImageFromTemplate = async (
   template: ImageTemplate, paramValues: ParamValues, resolution: ImageResolution, imagePath: string, resourcePath?: string, browser?: Browser
 ): Promise<void> => {
@@ -111,7 +115,7 @@ export const createImageFromTemplate = async (
   await convertUrlToImage(
     `file:///${htmlPath}`, {
       path: imagePath,
-      quality: 80,
+      quality: isJpeg(imagePath) ? 80 : undefined,
       fullPage: true
     },
     browser
