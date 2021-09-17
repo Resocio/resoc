@@ -3,12 +3,10 @@ import { ImageTemplate, ParamValues, FacebookOpenGraph, TwitterCard, TemplatePar
 import { Alert, Button, Col, Form } from 'react-bootstrap';
 import styled from 'styled-components';
 import copy from 'copy-text-to-clipboard';
+import { CreateImageProps } from './CreateImage';
+import CodeBlock from './CodeBlock';
 
-export type CreateCommandLineProps = {
-  manifestPath: string;
-  parameters: TemplateParam[];
-  values: ParamValues;
-};
+export type CommandLineProps = CreateImageProps;
 
 const Wrapper = styled.div`
   display: flex;
@@ -25,7 +23,7 @@ const CommandLineBox = styled(Alert)`
   align-items: flex-start;
 `;
 
-const CommandLine = styled.pre`
+const CmdLine = styled.pre`
   white-space: pre-wrap;
   flex: 1;
 `;
@@ -37,7 +35,7 @@ export const paramValuesToCommandLine = (parameters: TemplateParam[], values: Pa
   parameters.map(p => `${p.name}="${paramValueToString(p, values[p.name]).replaceAll('"', '\\"')}"`).join(' ')
 );
 
-const CreateCommandLine = (props: CreateCommandLineProps) => {
+const CommandLine = (props: CommandLineProps) => {
   const [ imageExt, setImageExt ] = useState<'jpg' | 'png'>('jpg');
   const [ platform, setPlatform ] = useState<'facebook' | 'twitter'>('facebook');
 
@@ -89,22 +87,10 @@ const CreateCommandLine = (props: CreateCommandLineProps) => {
         <Form.Label>
           Command line
         </Form.Label>
-        <CommandLineBox
-          className="p-3"
-          variant="secondary"
-        >
-          <CommandLine className="m-0"><span className="text-primary">$</span> {commandLine}</CommandLine>
-          <CopyButton
-            variant="outline-primary"
-            size="sm"
-            onClick={() => copy(commandLine)}
-          >
-            Copy
-          </CopyButton>
-        </CommandLineBox>
+        <CodeBlock commandLine code={commandLine} />
       </CommandLineContainer>
     </Wrapper>
   );
 };
 
-export default CreateCommandLine;
+export default CommandLine;

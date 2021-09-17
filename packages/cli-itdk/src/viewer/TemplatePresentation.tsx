@@ -3,9 +3,9 @@ import { Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { ImageTemplate, ParamValues, TemplateParam } from '@resoc/core';
 import ParamInput from './ParamInput';
 import styled from 'styled-components';
-import CreateCommandLine from './CreateCommandLine';
 import TemplateParameters from './TemplateParameters';
 import RichPreview from './RichPreview';
+import CreateImage from './create/CreateImage';
 
 export type TemplatePresentationProps = {
   template: ImageTemplate;
@@ -117,7 +117,7 @@ const TemplatePresentation = (props: TemplatePresentationProps) => {
           <Card.Title>
             Create an image
           </Card.Title>
-          <CreateCommandLine
+          <CreateImage
             parameters={parameters}
             values={props.values}
             manifestPath={props.manifestPath}

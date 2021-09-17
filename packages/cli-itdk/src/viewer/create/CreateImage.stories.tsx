@@ -1,16 +1,16 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react';
 
-import CreateCommandLine, { CreateCommandLineProps } from './CreateCommandLine';
+import CreateImage, { CreateImageProps } from './CreateImage';
 import { ParamType } from '@resoc/core';
 
 export default {
-  title: 'CreateCommandLine',
-  component: CreateCommandLine,
+  title: 'create/CreateImage',
+  component: CreateImage,
 } as Meta;
 
-const Template: Story<CreateCommandLineProps> = (args) => (
-  <CreateCommandLine {...args} />
+const Template: Story<CreateImageProps> = (args) => (
+  <CreateImage {...args} />
 );
 
 export const Default = Template.bind({});
