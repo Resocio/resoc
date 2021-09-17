@@ -5,7 +5,8 @@ import {
   ParamValues,
   renderTemplateToHtml,
   TemplateParam,
-  ParamType
+  ParamType,
+  paramValueToString
 } from '@resoc/core'
 import { promises as fs } from 'fs'
 import path from 'path'
@@ -90,10 +91,13 @@ const copyLocalResources = async (parameters: TemplateParam[], values: ParamValu
   const newValues = Object.assign({}, values);
   for (const param of parameters) {
     const value = values[param.name];
-    if (param.type === ParamType.ImageUrl && value && isLocalResource(value)) {
-      const dest = `${tmpDir}/${uuidv4()}-${path.basename(value)}`;
-      await fs.copyFile(value, dest);
-      newValues[param.name] = dest;
+    if (param.type === ParamType.ImageUrl && value) {
+      const v = paramValueToString(param, value);
+      if (isLocalResource(v)) {
+        const dest = `${tmpDir}/${uuidv4()}-${path.basename(v)}`;
+        await fs.copyFile(v, dest);
+        newValues[param.name] = dest;
+      }
     }
   }
   return newValues;
