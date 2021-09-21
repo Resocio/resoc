@@ -13,7 +13,7 @@ export const initImageDateStorage = async(storagePath: string): Promise<void> =>
 
 export const storeImageData = async (storagePath: string, slug: string, imageData: ImageData): Promise<void> => {
   if (!await fileExists(storagePath)) {
-    initImageDateStorage(storagePath);
+    await initImageDateStorage(storagePath);
   }
 
   const storageContent = await fs.readFile(storagePath);
