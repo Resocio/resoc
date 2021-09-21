@@ -16,7 +16,7 @@ export const storeParamValues = async (storagePath: string, slug: string, values
 
   storage[slug] = values;
 
-  fs.writeFile(storagePath, JSON.stringify(storage));
+  return fs.writeFile(storagePath, JSON.stringify(storage));
 }
 
 export const getParamValues = async (storagePath: string, slug: string): Promise<ParamValues | null> => {
