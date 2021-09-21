@@ -3,8 +3,14 @@ import os from 'os'
 
 test('Storage', async () => {
   const sp = `${os.tmpdir()}/the_test_sorage.json`;
-  const firstPageValues = { a: '1', b: '2' };
-  const secondPageValues = { c: '8', d: '9' };
+  const firstPageValues = {
+    template: 't1',
+    values: { a: '1', b: '2' }
+  };
+  const secondPageValues = {
+    template: 't1',
+    values: { c: '8', d: '9' }
+  };
 
   await initParamValuesStorage(sp);
   expect(await getParamValues(sp, 'first-page')).toBeFalsy();
