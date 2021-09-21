@@ -1,4 +1,4 @@
-import { getParamValues, initParamValuesStorage, storeParamValues } from "./storage";
+import { getImageData, initImageDateStorage, storeImageData } from "./storage";
 import os from 'os'
 
 test('Storage', async () => {
@@ -12,19 +12,19 @@ test('Storage', async () => {
     values: { c: '8', d: '9' }
   };
 
-  await initParamValuesStorage(sp);
-  expect(await getParamValues(sp, 'first-page')).toBeFalsy();
-  expect(await getParamValues(sp, 'second-page')).toBeFalsy();
+  await initImageDateStorage(sp);
+  expect(await getImageData(sp, 'first-page')).toBeFalsy();
+  expect(await getImageData(sp, 'second-page')).toBeFalsy();
   
-  await storeParamValues(sp, 'first-page', firstPageValues);
-  expect(await getParamValues(sp, 'first-page')).toEqual(firstPageValues);
-  expect(await getParamValues(sp, 'second-page')).toBeFalsy();
+  await storeImageData(sp, 'first-page', firstPageValues);
+  expect(await getImageData(sp, 'first-page')).toEqual(firstPageValues);
+  expect(await getImageData(sp, 'second-page')).toBeFalsy();
 
-  await storeParamValues(sp, 'second-page', secondPageValues);
-  expect(await getParamValues(sp, 'first-page')).toEqual(firstPageValues);
-  expect(await getParamValues(sp, 'second-page')).toEqual(secondPageValues);
+  await storeImageData(sp, 'second-page', secondPageValues);
+  expect(await getImageData(sp, 'first-page')).toEqual(firstPageValues);
+  expect(await getImageData(sp, 'second-page')).toEqual(secondPageValues);
 
-  await initParamValuesStorage(sp);
-  expect(await getParamValues(sp, 'first-page')).toBeFalsy();
-  expect(await getParamValues(sp, 'second-page')).toBeFalsy();
+  await initImageDateStorage(sp);
+  expect(await getImageData(sp, 'first-page')).toBeFalsy();
+  expect(await getImageData(sp, 'second-page')).toBeFalsy();
 });
