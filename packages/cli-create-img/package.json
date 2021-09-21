@@ -1,6 +1,6 @@
 {
   "name": "create-img",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "description": "Create an image based on a Resoc image template",
   "bin": "build/cli.js",
   "scripts": {
@@ -26,7 +26,7 @@
   "homepage": "https://github.com/Resocio/compiler#readme",
   "dependencies": {
     "@resoc/core": "^0.5.0",
-    "@resoc/create-img": "^0.5.3",
+    "@resoc/create-img": "^0.5.4",
     "commander": "^8.1.0",
     "puppeteer": "^10.2.0",
     "recursive-copy": "^2.0.13"
