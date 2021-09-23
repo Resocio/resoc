@@ -4,6 +4,7 @@
   "description": "Manage image data",
   "main": "build/index.js",
   "module": "./build/index.es.js",
+  "private": false,
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
@@ -48,5 +49,6 @@
     "rollup-plugin-typescript2": "^0.30.0",
     "ts-node": "^10.2.1",
     "typescript": "^4.3.5"
-  }
+  },
+  "gitHead": "ef479333c4159d7c8ba0ec82492d76292056a105"
 }
