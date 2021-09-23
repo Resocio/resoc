@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import path from 'path'
-import program, { Option } from 'commander'
+import program from 'commander'
 import { copyTemplate, directoryNotEmpty } from './create-template';
 import { error, log, logDone, newLine, notice, success, warn } from './log';
 import { viewTemplate } from './view-template';
@@ -12,20 +12,16 @@ const runCommand = async () => {
     .name('itdk')
     .version(require('../../package.json').version);
 
+  let modelOption = new program.Option('-m, --model <model>', 'The model to start from');
+  modelOption = modelOption.choices(['basic', 'title-description']);
+  modelOption = modelOption.default('basic');
+
   program
     .command('init [template-dir]')
     .description('Create a new image template')
     .option('-i, --only-init', 'just create the template, do not view it')
     .option('-f, --force', 'create the template, even if the target directory is not empty')
-    .addOption(
-      (
-        new Option(
-          '-m, --model <model>', 'The model to start from'
-        )
-      )
-      .choices(['basic', 'title-description'])
-      .default('basic')
-    )
+    .addOption(modelOption)
     .action(async (templateDir, args) => {
       const dir = templateDir || '.';
       const dirCaption = templateDir || 'the current directory';
