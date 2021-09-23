@@ -22,7 +22,7 @@ const TemplateApp = (props: TemplateAppProps) => {
   const [template, setTemplate] = useState<ImageTemplate | null>(null);
   const [parametersAndValues, setParametersAndValues] = useState<ParametersAndValues | null>(null);
 
-  const [error, setError] = useState<Error | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const [updateListenerStarted, setUpdateListenerStarted] = useState<boolean>(false);
 
   useEffect(() => {
@@ -41,8 +41,12 @@ const TemplateApp = (props: TemplateAppProps) => {
             });
           }
         }
-        catch(e) {
-          setError(e);
+        catch(err) {
+          if (err instanceof Error) {
+            setError(err.message);
+          } else {
+            setError('Unknown error');
+          }
         }
       }
     })();
@@ -63,7 +67,7 @@ const TemplateApp = (props: TemplateAppProps) => {
       {error && (
         <Alert variant="danger">
           <p>
-            <strong>{error.message}</strong>
+            <strong>{error}</strong>
           </p>
         </Alert>
       )}
