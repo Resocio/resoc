@@ -1,0 +1,52 @@
+{
+  "name": "@resoc/img-data",
+  "version": "0.5.4",
+  "description": "Manage image data",
+  "main": "build/index.js",
+  "module": "./build/index.es.js",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "build": "rollup -c rollup.config.js",
+    "prepare": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Resocio/resoc.git"
+  },
+  "keywords": [
+    "resoc",
+    "image",
+    "template"
+  ],
+  "author": "Philippe Bernard",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Resocio/resoc/issues"
+  },
+  "homepage": "https://github.com/Resocio/resoc#readme",
+  "dependencies": {
+    "@resoc/core": "^0.5.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.15.0",
+    "@babel/plugin-transform-runtime": "^7.15.0",
+    "@babel/preset-env": "^7.15.0",
+    "@babel/preset-typescript": "^7.15.0",
+    "@babel/runtime": "^7.15.3",
+    "@rollup/plugin-commonjs": "^20.0.0",
+    "@rollup/plugin-json": "^4.1.0",
+    "@types/folder-hash": "^4.0.1",
+    "@types/jest": "^27.0.1",
+    "@types/mustache": "^4.1.2",
+    "@types/sha256": "^0.2.0",
+    "@types/uuid": "^8.3.1",
+    "jest": "^27.0.6",
+    "rollup": "^2.56.3",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-preserve-shebangs": "^0.2.0",
+    "rollup-plugin-typescript2": "^0.30.0",
+    "ts-node": "^10.2.1",
+    "typescript": "^4.3.5"
+  }
+}

@@ -10,4 +10,3 @@ export {
 export { loadLocalTemplate } from "./local";
 export { parseParameters } from "./parse-parameters";
 export { convertUrlToImage } from "./puppeteer";
-export { initImageDateStorage, storeImageData, getImageData } from "./storage";

@@ -1,6 +1,15 @@
-import { ImageTemplate, ParamValues } from "@resoc/core"
+import { ParamValues } from "@resoc/core"
 import { promises as fs } from 'fs'
-import { fileExists } from './compile';
+
+export const fileExists = async (path: string): Promise<boolean> => {
+  try {
+    await fs.access(path);
+    return true;
+  }
+  catch (e) {
+    return false;
+  }
+};
 
 export type ImageData = {
   template: string;
