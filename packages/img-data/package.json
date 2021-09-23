@@ -1,6 +1,6 @@
 {
   "name": "@resoc/img-data",
-  "version": "0.5.4",
+  "version": "0.6.0",
   "description": "Manage image data",
   "main": "build/index.js",
   "module": "./build/index.es.js",
@@ -26,7 +26,7 @@
   },
   "homepage": "https://github.com/Resocio/resoc#readme",
   "dependencies": {
-    "@resoc/core": "^0.5.0"
+    "@resoc/core": "^0.6.0"
   },
   "devDependencies": {
     "@babel/core": "^7.15.0",
