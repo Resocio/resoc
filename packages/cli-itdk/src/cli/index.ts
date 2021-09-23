@@ -18,8 +18,10 @@ const runCommand = async () => {
     .option('-i, --only-init', 'just create the template, do not view it')
     .option('-f, --force', 'create the template, even if the target directory is not empty')
     .addOption(
-      new Option(
-        '-m, --model <model>', 'The model to start from'
+      (
+        new Option(
+          '-m, --model <model>', 'The model to start from'
+        )
       )
       .choices(['basic', 'title-description'])
       .default('basic')
