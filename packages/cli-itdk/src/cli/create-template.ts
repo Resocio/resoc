@@ -1,10 +1,10 @@
 import { promises as fs } from 'fs'
 import copy from 'copy'
 
-export const copyTemplate = async (dir: string): Promise<void> => {
+export const copyTemplate = async (dir: string, model: string): Promise<void> => {
   await fs.mkdir(dir, { recursive: true });
 
-  const templateDir = `${__dirname}/../../starter-templates/basic`;
+  const templateDir = `${__dirname}/../../starter-templates/${model}`;
 
   return new Promise((accept, reject) => {
     copy(`${templateDir}/*`, dir, (err) => {
@@ -16,8 +16,8 @@ export const copyTemplate = async (dir: string): Promise<void> => {
   });
 };
 
-export const createTemplate = async (dir: string): Promise<void> => {
-  await copyTemplate(dir);
+export const createTemplate = async (dir: string, model: string): Promise<void> => {
+  await copyTemplate(dir, model);
 };
 
 export const directoryNotEmpty = async (dir: string): Promise<boolean> => {
