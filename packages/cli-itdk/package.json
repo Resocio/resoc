@@ -30,6 +30,7 @@
   },
   "homepage": "https://github.com/Resocio/resoc#readme",
   "dependencies": {
+    "@react-hook/resize-observer": "^1.2.4",
     "@resoc/core": "^0.6.1",
     "axios": "^0.21.1",
     "bootstrap": "^5.1.0",

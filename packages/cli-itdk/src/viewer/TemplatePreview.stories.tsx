@@ -25,7 +25,7 @@ Default.loaders = [
 ];
 Default.args = {
   width: 500,
-  height: 300,
+  height: 262,
   parameters: {
     mainImageUrl: 'https://resoc.io/assets/img/demo/photos/pexels-photo-371589.jpeg',
     textColor: '#ffffff',
