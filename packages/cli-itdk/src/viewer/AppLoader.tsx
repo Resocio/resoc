@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import TemplateApp from './TemplateApp';
+import ViewerApp from './ViewerApp';
 
 const AppLoader = () => {
   const [env, setEnv] = useState<any | null>(null);
@@ -15,7 +15,7 @@ const AppLoader = () => {
 
   if (env) {
     return (
-      <TemplateApp
+      <ViewerApp
         manifestUrl={`/${env.manifestName}`}
         manifestPath={env.manifestPath}
         templateDir={env.templateDir}

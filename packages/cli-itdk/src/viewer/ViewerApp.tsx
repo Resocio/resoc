@@ -5,7 +5,7 @@ import TemplatePresentation from './TemplatePresentation';
 import StarterAlert from './StarterAlert';
 import { waitForUpdates } from './Utils';
 
-export type TemplateAppProps = {
+export type ViewerAppProps = {
   manifestUrl: string;
   templateDir: string;
   manifestPath: string;
@@ -18,7 +18,7 @@ type ParametersAndValues = {
   values: ParamValues;
 }
 
-const TemplateApp = (props: TemplateAppProps) => {
+const ViewerApp = (props: ViewerAppProps) => {
   const [template, setTemplate] = useState<ImageTemplate | null>(null);
   const [parametersAndValues, setParametersAndValues] = useState<ParametersAndValues | null>(null);
 
@@ -97,4 +97,4 @@ const TemplateApp = (props: TemplateAppProps) => {
   );
 };
 
-export default TemplateApp;
+export default ViewerApp;
