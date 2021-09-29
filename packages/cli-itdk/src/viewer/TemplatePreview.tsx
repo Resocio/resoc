@@ -83,7 +83,8 @@ const TemplatePreview = (props: TemplatePreviewProps) => {
     <div style={{
       position: 'relative',
       width: props.width,
-      height: props.height
+      height: props.height,
+      backgroundColor: 'white'
     }}>
       <SingleIframe
         me={'a'}
