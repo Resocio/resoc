@@ -37,9 +37,6 @@ const ScaledElement = (props: ScaledElementProps) => {
     childrenStyles = {};
   }
 
-  console.log("S", selfRect, "C", childrenRect);
-  console.log(selfStyles);
-
   return (
     <div ref={self} style={selfStyles}>
       <div ref={children} style={childrenStyles}>
