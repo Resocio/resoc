@@ -19,6 +19,7 @@ const HtmlTemplate = `
         font-size: 3vw;
         display: flex;
         align-items: stretch;
+        background-color: white;
       }
 
       body {
