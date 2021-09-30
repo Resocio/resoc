@@ -1,6 +1,6 @@
 {
   "name": "itdk",
-  "version": "0.6.6",
+  "version": "0.6.7",
   "description": "Resoc Image Template Development Kit",
   "main": "build/cli/index.js",
   "module": "build/cli/index.es.js",
@@ -31,7 +31,7 @@
   "homepage": "https://github.com/Resocio/resoc#readme",
   "dependencies": {
     "@react-hook/resize-observer": "^1.2.4",
-    "@resoc/core": "^0.6.1",
+    "@resoc/core": "^0.6.7",
     "axios": "^0.21.1",
     "bootstrap": "^5.1.0",
     "cli-color": "^2.0.0",
