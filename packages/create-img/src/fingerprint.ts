@@ -4,6 +4,5 @@ import sha256 from 'sha256';
 
 export const imageFingerprint = async (templateDir: string, values: ParamValues): Promise<string> => {
   const hash = await hashElement(templateDir);
-  const sha = await sha256(JSON.stringify(hash) + JSON.stringify(values));
-  return sha.substr(0, 8);
+  return await sha256(JSON.stringify(hash) + JSON.stringify(values));
 };
