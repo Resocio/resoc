@@ -83,7 +83,8 @@ export const isLocalResource = (url: string): boolean => {
   return (
     !up.startsWith('http://') &&
     !up.startsWith('https://') &&
-    !up.startsWith('//')
+    !up.startsWith('//') &&
+    !up.startsWith('data:') // Data URL
   );
 };
 

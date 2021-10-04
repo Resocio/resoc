@@ -7,4 +7,6 @@ test('isLocalResource', () => {
   expect(isLocalResource('../image.png')).toBeTruthy();
   expect(isLocalResource('C:\\docs\\image.png')).toBeTruthy();
   expect(isLocalResource('/home/me/image.png')).toBeTruthy();
+  expect(isLocalResource('/home/me/image.png')).toBeTruthy();
+  expect(isLocalResource('data:image/jpeg;base64,abcdef')).toBeFalsy();
 });
