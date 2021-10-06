@@ -1,7 +1,6 @@
 import {
   ImageTemplate,
   ImageResolution,
-  loadRemoteTemplate,
   ParamValues,
   renderTemplateToHtml,
   TemplateParam,
