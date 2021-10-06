@@ -1,4 +1,4 @@
-import axios from "axios";
+import fetch from 'isomorphic-fetch';
 import { ImageTemplate, TemplateParam } from "./template";
 
 export const isAbsoluteUrl = (url: string): boolean => (
@@ -20,7 +20,7 @@ export const resolveRelativeUrl = (relativeUrl: string, baseUrl: string) => {
 
 export const downloadManifest = async (manifestUrl: string): Promise<any> => {
   try {
-    return (await axios.get(manifestUrl)).data;
+    return (await fetch(manifestUrl)).json();
   }
   catch(e) {
     throw new Error(`Cannot download manifest file ${manifestUrl}: ${e}`);
@@ -32,7 +32,8 @@ export const loadRemoteTemplate = async (manifestUrl: string): Promise<ImageTemp
 
   const partials: { [ name: string ]: string } = {};
   for await (let partial of Object.keys(manifest['partials'])) {
-    partials[partial] = (await axios.get(resolveRelativeUrl(manifest['partials'][partial], manifestUrl))).data;
+    const partialResp = await fetch(resolveRelativeUrl(manifest['partials'][partial], manifestUrl));
+    partials[partial] = await partialResp.text();
   }
 
   const parameters: TemplateParam[] = [];

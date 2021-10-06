@@ -1,4 +1,3 @@
-import axios from 'axios';
 import Mustache from 'mustache'
 
 export const DefaultManifestName = 'resoc.manifest.json';
