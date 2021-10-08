@@ -1,6 +1,6 @@
 {
   "name": "@resoc/img-data",
-  "version": "0.7.0",
+  "version": "0.7.2",
   "description": "Manage image data",
   "main": "build/index.js",
   "module": "./build/index.es.js",

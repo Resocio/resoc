@@ -1,6 +1,6 @@
 {
   "name": "create-img",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "description": "Create an image based on a Resoc image template",
   "bin": "build/cli.js",
   "scripts": {
