@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Col, Form, Row } from 'react-bootstrap';
+import ScaledElement from './ScaledElement';
 import TemplatePreview, { TemplatePreviewProps } from './TemplatePreview';
 import TransparentOverlay from './TransparentOverlay';
 
@@ -30,9 +31,11 @@ const RichPreview = (props: RichPreviewProps) => {
         </Row>
       )}
       <div className="border">
-        <TransparentOverlay {...props} opacity={opacity} backgroundImageUrl={props.backgroundImageUrl}>
-          <TemplatePreview {...props} />
-        </TransparentOverlay>
+        <ScaledElement>
+          <TransparentOverlay {...props} opacity={opacity} backgroundImageUrl={props.backgroundImageUrl}>
+            <TemplatePreview {...props} />
+          </TransparentOverlay>
+        </ScaledElement>
       </div>
     </div>
   )

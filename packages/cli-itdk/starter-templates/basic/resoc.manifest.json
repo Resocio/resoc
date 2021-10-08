@@ -13,7 +13,7 @@
       "label": "Main image",
       "name": "mainImageUrl",
       "type": "imageUrl",
-      "demoValue": "https://resoc.io/assets/img/demo/photos/pexels-photo-371589.jpeg"
+      "demoValue": "https://resoc.io/assets/img/demo/photos/pexels-photo-2347483.jpeg"
     },
     {
       "name": "textColor",
@@ -23,7 +23,7 @@
     {
       "name": "backgroundColor",
       "type": "color",
-      "demoValue": "#20552a"
+      "demoValue": "#003bff"
     }
   ]
 }

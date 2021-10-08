@@ -30,15 +30,11 @@ export const viewTemplate = async (manifestPath: string, facebookModelUrl?: stri
 
   let manifestName = path.basename(manifestPath);
   let templateDir: string | null = null;
-  let manifestBaseUrl: string | null = null;
 
   if (localTemplate) {
     manifestPath = path.normalize(manifestPath);
     templateDir = path.dirname(manifestPath);
     const serverDir = await fs.mkdtemp(path.join(os.tmpdir(), 'resoc-view-server-'));
-  }
-  else {
-    manifestBaseUrl = manifestPath.substr(0, manifestPath.lastIndexOf('/'));
   }
 
   const port = 8080;
@@ -52,14 +48,23 @@ export const viewTemplate = async (manifestPath: string, facebookModelUrl?: stri
   app.use(function (req, res, next) {
     if (req.url && req.url === '/env.json') {
       res.setHeader('Content-Type', 'application/json');
-      res.end(JSON.stringify({
+      let env = {
         localTemplate: localTemplate,
-        manifestPath: manifestPath.replace(/\\/g, '/'),
-        templateDir,
-        manifestName,
         facebookModelUrl: rawModuleUrlToViewerUrl(facebookModelUrl, FACEBOOK_MODEL_PREFIX),
         twitterModelUrl: rawModuleUrlToViewerUrl(twitterModelUrl, TWITTER_MODEL_PREFIX),
-      }));
+      };
+
+      env = localTemplate
+        ? Object.assign(env, {
+          templateDir,
+          manifestLocalUrl: `/${manifestName}`,
+          manifestPath: manifestPath.replace(/\\/g, '/')
+        })
+        : Object.assign(env, {
+          manifestOriginalUrl: manifestPath
+        });
+
+      res.end(JSON.stringify(env));
       return;
     }
 
@@ -85,22 +90,8 @@ export const viewTemplate = async (manifestPath: string, facebookModelUrl?: stri
 
   if (localTemplate && templateDir) {
     app.use(serveStatic(templateDir));
-  } else if (manifestBaseUrl) {
-    app.use(function (req, res, next) {
-      if (req.url) {
-        axios({
-          method: 'get',
-          url: `${manifestBaseUrl}${req.url}`,
-          responseType: 'stream'
-        }).then(function(response) {
-          response.data.pipe(res);
-        });
-        return;
-      }
-
-      next();
-    });
   }
+
   app.listen(port);
 
   // Changes

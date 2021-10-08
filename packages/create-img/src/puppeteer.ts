@@ -9,7 +9,9 @@ const defaultLocalBrowser = async (): Promise<Browser> => {
     });
   }
   catch(e) {
-    throw new Error('Cannot find local browser. See https://www.npmjs.com/package/@resoc/create-img#configure-puppeteer');
+    throw new Error(
+      `Cannot run local browser with Puppeteer: ${e}.\nSee https://www.npmjs.com/package/@resoc/create-img#configure-puppeteer`
+    );
   };
 }
 

@@ -1,20 +1,20 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react';
 
-import TemplateApp, { TemplateAppProps } from './TemplateApp';
+import ViewerApp, { ViewerAppProps } from './ViewerApp';
 import { DefaultManifestName } from '@resoc/core';
 
 export default {
-  title: 'TemplateApp',
-  component: TemplateApp
+  title: 'ViewerApp',
+  component: ViewerApp
 } as Meta;
 
 type TemplateStory = {
   loaders?: (() => Promise<any>)[];
-} & Story<TemplateAppProps>;
+} & Story<ViewerAppProps>;
 
-const Template: Story<TemplateAppProps> = (args: TemplateAppProps) => (
-  <TemplateApp {...args} />
+const Template: Story<ViewerAppProps> = (args: ViewerAppProps) => (
+  <ViewerApp {...args} />
 );
 
 export const Default = Template.bind({});

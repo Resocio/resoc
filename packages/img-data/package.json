@@ -1,19 +1,19 @@
 {
-  "name": "@resoc/core",
+  "name": "@resoc/img-data",
   "version": "0.6.7",
-  "description": "Resoc core utils",
+  "description": "Manage image data",
   "main": "build/index.js",
-  "module": "build/index.es.js",
-  "types": "build/index.d.ts",
+  "module": "./build/index.es.js",
+  "private": false,
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
-    "build": "rollup -c",
+    "build": "rollup -c rollup.config.js",
     "prepare": "npm run build"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Resocio/core.git"
+    "url": "git+https://github.com/Resocio/resoc.git"
   },
   "keywords": [
     "resoc",
@@ -23,37 +23,32 @@
   "author": "Philippe Bernard",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Resocio/core/issues"
+    "url": "https://github.com/Resocio/resoc/issues"
   },
-  "homepage": "https://github.com/Resocio/core#readme",
+  "homepage": "https://github.com/Resocio/resoc#readme",
+  "dependencies": {
+    "@resoc/core": "^0.6.7"
+  },
   "devDependencies": {
     "@babel/core": "^7.15.0",
     "@babel/plugin-transform-runtime": "^7.15.0",
     "@babel/preset-env": "^7.15.0",
-    "@babel/preset-react": "^7.14.5",
     "@babel/preset-typescript": "^7.15.0",
     "@babel/runtime": "^7.15.3",
     "@rollup/plugin-commonjs": "^20.0.0",
     "@rollup/plugin-json": "^4.1.0",
-    "@rollup/plugin-node-resolve": "^13.0.4",
-    "@types/isomorphic-fetch": "0.0.35",
-    "@types/jest": "^26.0.23",
+    "@types/folder-hash": "^4.0.1",
+    "@types/jest": "^27.0.1",
     "@types/mustache": "^4.1.2",
-    "babel-loader": "^8.2.2",
-    "jest": "^27.0.3",
+    "@types/sha256": "^0.2.0",
+    "@types/uuid": "^8.3.1",
+    "jest": "^27.0.6",
     "rollup": "^2.56.3",
     "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-preserve-shebangs": "^0.2.0",
     "rollup-plugin-typescript2": "^0.30.0",
     "ts-node": "^10.2.1",
-    "typescript": "^4.3.2"
-  },
-  "dependencies": {
-    "isomorphic-fetch": "^3.0.0",
-    "mustache": "^4.2.0"
-  },
-  "peerDependencies": {
-    "isomorphic-fetch": "^3.0.0",
-    "mustache": "^4.2.0"
+    "typescript": "^4.3.5"
   },
   "gitHead": "ef479333c4159d7c8ba0ec82492d76292056a105"
 }

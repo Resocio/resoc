@@ -1,32 +1,30 @@
 import React, { useState } from 'react'
 import { Card, Col, Container, Form, Row } from 'react-bootstrap';
-import { ImageTemplate, ParamValues, TemplateParam } from '@resoc/core';
+import { FacebookOpenGraph, ImageTemplate, ParamValues, TemplateParam, TwitterCard } from '@resoc/core';
 import ParamInput from './ParamInput';
 import styled from 'styled-components';
 import TemplateParameters from './TemplateParameters';
 import RichPreview from './RichPreview';
+import CreateImage from './create/CreateImage';
 
 export type TemplatePresentationProps = {
   template: ImageTemplate;
   parameters?: TemplateParam[];
+  baseUrl?: string;
   values: ParamValues;
-  manifestPath: string;
   facebookModelUrl?: string;
   twitterModelUrl?: string;
   onChange: (newValues: ParamValues) => void;
 };
 
-const RATIO_FACEBOOK = 1.91;
-const RATIO_TWTTER = 2.0;
-
-const WIDTH = 470;
-
 type PreviewProps = {
   title: string;
   template: ImageTemplate;
   parameters: ParamValues;
-  ratio: number;
+  baseUrl?: string;
   backgroundImageUrl?: string;
+  width: number;
+  height: number;
 };
 
 const Preview = (props: PreviewProps) => (
@@ -35,8 +33,9 @@ const Preview = (props: PreviewProps) => (
     <RichPreview
       template={props.template}
       parameters={props.parameters}
-      width={WIDTH}
-      height={WIDTH / props.ratio}
+      baseUrl={props.baseUrl}
+      width={props.width}
+      height={props.height}
       backgroundImageUrl={props.backgroundImageUrl}
     />
   </div>
@@ -44,14 +43,9 @@ const Preview = (props: PreviewProps) => (
 
 const Wrapper = styled.div``;
 
-const PreviewsParamsWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 16px;
-`;
-
 const ParamsContainer = styled.div`
   flex: 1;
+  height: 100%;
 `;
 
 const PreviewsWrapper = styled.div`
@@ -69,47 +63,55 @@ const TemplatePresentation = (props: TemplatePresentationProps) => {
 
   return (
     <Wrapper>
-      <PreviewsParamsWrapper className="mb-3">
-        <PresCard>
-          <Card.Body>
-            <Card.Title>Previews</Card.Title>
-
-            <PreviewsWrapper>
-              <Preview
-                title="Facebook"
-                template={props.template}
-                parameters={props.values}
-                ratio={RATIO_FACEBOOK}
-                backgroundImageUrl={props.facebookModelUrl}
-              />
-
-              <Preview
-                title="Twitter Card"
-                template={props.template}
-                parameters={props.values}
-                ratio={RATIO_TWTTER}
-                backgroundImageUrl={props.twitterModelUrl}
-              />
-            </PreviewsWrapper>
-          </Card.Body>
-        </PresCard>
-
-        <ParamsContainer>
+      <Row className="mb-3">
+        <Col md={6}>
           <PresCard>
             <Card.Body>
-              <Card.Title>Parameters</Card.Title>
+              <Card.Title>Previews</Card.Title>
 
-              <TemplateParameters
-                parameters={parameters}
-                values={props.values}
-                onChange={(newValues) => {
-                  props.onChange(newValues);
-                }}
-              />
+              <PreviewsWrapper>
+                <Preview
+                  title="Facebook"
+                  template={props.template}
+                  parameters={props.values}
+                  baseUrl={props.baseUrl}
+                  width={FacebookOpenGraph.width}
+                  height={FacebookOpenGraph.height}
+                  backgroundImageUrl={props.facebookModelUrl}
+                />
+
+                <Preview
+                  title="Twitter Card"
+                  template={props.template}
+                  parameters={props.values}
+                  baseUrl={props.baseUrl}
+                  width={TwitterCard.width}
+                  height={TwitterCard.height}
+                  backgroundImageUrl={props.twitterModelUrl}
+                />
+              </PreviewsWrapper>
             </Card.Body>
           </PresCard>
-        </ParamsContainer>
-      </PreviewsParamsWrapper>
+        </Col>
+
+        <Col md={6}>
+          <ParamsContainer>
+            <PresCard>
+              <Card.Body>
+                <Card.Title>Parameters</Card.Title>
+
+                <TemplateParameters
+                  parameters={parameters}
+                  values={props.values}
+                  onChange={(newValues) => {
+                    props.onChange(newValues);
+                  }}
+                />
+              </Card.Body>
+            </PresCard>
+          </ParamsContainer>
+        </Col>
+      </Row>
     </Wrapper>
   );
 };

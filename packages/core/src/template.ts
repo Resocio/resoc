@@ -1,4 +1,3 @@
-import axios from 'axios';
 import Mustache from 'mustache'
 
 export const DefaultManifestName = 'resoc.manifest.json';
@@ -6,12 +5,15 @@ export const DefaultManifestName = 'resoc.manifest.json';
 const PartialContent = 'content';
 const PartialStyles = 'styles';
 
-const HtmlTemplate = `
+export const HtmlTemplate = `
 <html>
   <head>
     <meta name="viewport" content="width={{ resoc_imageWidth }}, initial-scale=1">
   </head>
   <body>
+    {{#resoc_baseUrl}}
+    <base href="{{{ resoc_baseUrl }}}" />
+    {{/resoc_baseUrl}}
     <style>
       html {
         width: {{ resoc_imageWidth }}px;
@@ -19,6 +21,7 @@ const HtmlTemplate = `
         font-size: 3vw;
         display: flex;
         align-items: stretch;
+        background-color: white;
       }
 
       body {
@@ -95,10 +98,11 @@ export const demoParamValues = (params: TemplateParam[]): ParamValues => {
   return values;
 };
 
-export const assignResolutionToParamerters = (values: ParamValues, resolution: ImageResolution) => (
+export const assignResolutionToParamerters = (values: ParamValues, resolution: ImageResolution, baseUrl?: string) => (
   Object.assign({}, values, {
     resoc_imageWidth: resolution.width,
-    resoc_imageHeight: resolution.height
+    resoc_imageHeight: resolution.height,
+    resoc_baseUrl: baseUrl
   })
 );
 
@@ -110,8 +114,12 @@ export const renderRawTemplate = (
   Mustache.render(mainTemplate, parameters, template.partials)
 );
 
-export const renderTemplateToHtml = (template: ImageTemplate, parameters: ParamValues, resolution: ImageResolution) => (
-  renderRawTemplate(HtmlTemplate, template, assignResolutionToParamerters(parameters, resolution))
+export const renderTemplateToHtml = (template: ImageTemplate, parameters: ParamValues, resolution: ImageResolution, baseUrl?: string) => (
+  renderRawTemplate(
+    HtmlTemplate,
+    template,
+    assignResolutionToParamerters(parameters, resolution, baseUrl)
+  )
 );
 
 export const parseTemplateManifestParams = (manifest: any): TemplateParam[] => {

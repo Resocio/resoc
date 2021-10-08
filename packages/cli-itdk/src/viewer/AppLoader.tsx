@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import TemplateApp from './TemplateApp';
+import ViewerApp from './ViewerApp';
 
 const AppLoader = () => {
   const [env, setEnv] = useState<any | null>(null);
@@ -14,16 +14,25 @@ const AppLoader = () => {
   }, env);
 
   if (env) {
-    return (
-      <TemplateApp
-        localTemplate={env.localTemplate}
-        manifestUrl={`/${env.manifestName}`}
-        manifestPath={env.manifestPath}
-        templateDir={env.templateDir}
-        facebookModelUrl={env.facebookModelUrl}
-        twitterModelUrl={env.twitterModelUrl}
-      />
-    )
+    return env.localTemplate
+      ? (
+        <ViewerApp
+          localTemplate={true}
+          manifestUrl={env.manifestLocalUrl}
+          manifestPath={env.manifestPath}
+          templateDir={env.templateDir}
+          facebookModelUrl={env.facebookModelUrl}
+          twitterModelUrl={env.twitterModelUrl}
+        />
+      )
+      : (
+        <ViewerApp
+          localTemplate={false}
+          manifestUrl={env.manifestOriginalUrl}
+          facebookModelUrl={env.facebookModelUrl}
+          twitterModelUrl={env.twitterModelUrl}
+        />
+      );
   } else {
     return (
       <div>Loading...</div>

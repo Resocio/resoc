@@ -37,6 +37,7 @@ const SingleIframe = (props: SingleIframeProps) => (
 export type TemplatePreviewProps = {
   template: ImageTemplate;
   parameters: ParamValues;
+  baseUrl?: string;
   width: number;
   height: number;
 };
@@ -58,7 +59,7 @@ const TemplatePreview = (props: TemplatePreviewProps) => {
       props.template, props.parameters, {
         width: props.width,
         height: props.height
-      }
+      }, props.baseUrl
     );
 
     if (showDivA) {
@@ -83,7 +84,8 @@ const TemplatePreview = (props: TemplatePreviewProps) => {
     <div style={{
       position: 'relative',
       width: props.width,
-      height: props.height
+      height: props.height,
+      backgroundColor: 'white'
     }}>
       <SingleIframe
         me={'a'}

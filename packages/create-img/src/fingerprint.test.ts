@@ -7,7 +7,7 @@ test('templateFingerprint', async () => {
   const p2 = { a: 'B' };
 
   const t1p1 = await imageFingerprint(t1, p1);
-  expect(t1p1.length).toEqual(8);
+  expect(t1p1.length).toEqual(64);
 
   const t1p1Twice = await imageFingerprint(t1, p1);
   expect(t1p1Twice).toEqual(t1p1);

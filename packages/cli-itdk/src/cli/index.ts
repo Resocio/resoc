@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import path from 'path'
-import program from 'commander'
+import { program, Option } from 'commander'
 import { copyTemplate, directoryNotEmpty } from './create-template';
 import { error, log, logDone, newLine, notice, success, warn } from './log';
 import { viewTemplate } from './view-template';
@@ -17,6 +17,11 @@ const runCommand = async () => {
     .description('Create a new image template')
     .option('-i, --only-init', 'just create the template, do not view it')
     .option('-f, --force', 'create the template, even if the target directory is not empty')
+    .addOption(
+      new Option('-m, --model <model>', 'The model to start from')
+      .choices(['basic', 'title-description'])
+      .default('basic')
+    )
     .action(async (templateDir, args) => {
       const dir = templateDir || '.';
       const dirCaption = templateDir || 'the current directory';
@@ -34,7 +39,7 @@ const runCommand = async () => {
         }
       }
 
-      await copyTemplate(dir);
+      await copyTemplate(dir, args.model);
       logDone();
       newLine();
 

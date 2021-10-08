@@ -1,4 +1,4 @@
-import { assignResolutionToParamerters, demoParamValues, paramLabel, ParamType, paramValueToString, parseTemplateManifestParams, renderRawTemplate, stringToParamValue, validateParamValue } from './template'
+import { assignResolutionToParamerters, demoParamValues, HtmlTemplate, paramLabel, ParamType, paramValueToString, parseTemplateManifestParams, renderRawTemplate, stringToParamValue, validateParamValue } from './template'
 
 test('renderRawTemplate', () => {
   expect(renderRawTemplate(
@@ -6,8 +6,24 @@ test('renderRawTemplate', () => {
       partials: { content: 'Hello {{name}}' }, parameters: []
     }, {
       name: 'world'
-    }))
-    .toEqual('# Hello world *');
+    })
+  ).toEqual('# Hello world *');
+
+  expect(renderRawTemplate(
+    '# {{#someVar}}This is {{ someVar }}{{/someVar}} *',{
+      partials: {}, parameters: []
+    }, {
+      someVar: 'Hello!'
+    })
+  ).toEqual('# This is Hello! *');
+
+  expect(renderRawTemplate(
+    '# {{#someVar}}This is {{ someVar }}{{/someVar}} *',{
+      partials: {}, parameters: []
+    }, {
+      notTheVar: 'What?'
+    })
+  ).toEqual('#  *');
 });
 
 test('parseTemplateManifestParams', () => {
@@ -75,6 +91,18 @@ test('assignResolutionToParamerters', () => {
     title: 'Hello',
     resoc_imageWidth: 123,
     resoc_imageHeight: 456
+  });
+
+  expect(assignResolutionToParamerters({
+    title: 'Hello'
+  }, {
+    width: 789,
+    height: 654
+  }, 'http://example.com/sub-dir')).toEqual({
+    title: 'Hello',
+    resoc_imageWidth: 789,
+    resoc_imageHeight: 654,
+    resoc_baseUrl: 'http://example.com/sub-dir'
   });
 });
 
