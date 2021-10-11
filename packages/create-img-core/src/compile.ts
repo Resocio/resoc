@@ -42,7 +42,7 @@ export const cachedImageName = async (
   return Mustache.render(imagePath, { hash });
 };
 
-export const createImageCore = async (
+export const createImage = async (
   templateManifestPath: string,
   paramValues: ParamValues,
   resolution: ImageResolution,
@@ -112,7 +112,7 @@ export const createImageFromTemplate = async (
   paramValues: ParamValues,
   resolution: ImageResolution,
   imagePath: string,
-  resourcePath: string,
+  resourcePath: string | undefined,
   browser: Browser
 ): Promise<void> => {
   const htmlPath = await renderLocalTemplate(template, paramValues, resolution, resourcePath);

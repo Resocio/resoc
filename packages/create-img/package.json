@@ -26,13 +26,8 @@
   },
   "homepage": "https://github.com/Resocio/compiler#readme",
   "dependencies": {
-    "@resoc/core": "^0.7.0",
-    "commander": "^8.1.0",
-    "folder-hash": "^4.0.1",
-    "mustache": "^4.2.0",
-    "recursive-copy": "^2.0.13",
-    "sha256": "^0.2.0",
-    "uuid": "^8.3.2"
+    "@resoc/create-img-core": "^0.7.0",
+    "puppeteer": "^10.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.15.0",
@@ -44,12 +39,8 @@
     "@rollup/plugin-json": "^4.1.0",
     "@types/folder-hash": "^4.0.1",
     "@types/jest": "^27.0.1",
-    "@types/mustache": "^4.1.2",
-    "@types/sha256": "^0.2.0",
-    "@types/uuid": "^8.3.1",
     "jest": "^27.0.6",
     "nodemon": "^2.0.12",
-    "puppeteer": "^10.2.0",
     "rollup": "^2.56.3",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-preserve-shebangs": "^0.2.0",

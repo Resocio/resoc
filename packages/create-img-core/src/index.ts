@@ -1,5 +1,5 @@
 export {
-  createImageCore,
+  createImage,
   createImageFromTemplate,
   compileTemplate,
   cachedImageName,

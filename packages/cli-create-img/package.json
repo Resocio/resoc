@@ -28,7 +28,6 @@
     "@resoc/core": "^0.7.0",
     "@resoc/create-img": "^0.7.1",
     "commander": "^8.1.0",
-    "puppeteer": "^10.2.0",
     "recursive-copy": "^2.0.13"
   },
   "devDependencies": {

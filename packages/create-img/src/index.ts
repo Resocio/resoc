@@ -3,10 +3,13 @@ export {
   createImageFromTemplate,
   compileTemplate,
   compileLocalTemplate,
+} from "./compile";
+export { convertUrlToImage } from "./puppeteer";
+
+export {
   cachedImageName,
   fileExists,
-  renderLocalTemplate
-} from "./compile";
-export { loadLocalTemplate } from "./local";
-export { parseParameters } from "./parse-parameters";
-export { convertUrlToImage } from "./puppeteer";
+  renderLocalTemplate,
+  loadLocalTemplate,
+  parseParameters
+} from '@resoc/create-img-core';
