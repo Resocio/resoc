@@ -16,9 +16,7 @@ import { imageFingerprint } from './fingerprint'
 import Mustache from 'mustache'
 import { v4 as uuidv4 } from 'uuid'
 import { convertUrlToImage } from './puppeteer'
-
-import type puppeteer from 'puppeteer'
-import type { Browser } from 'puppeteer'
+import type { Browser, ScreenshotOptions } from 'puppeteer'
 
 type LocalTemplateOptions = {
   cache?: boolean;
@@ -123,7 +121,7 @@ export const createImageFromTemplate = async (
 };
 
 export const createAnyImageFromTemplate = async (
-  template: ImageTemplate, paramValues: ParamValues, resolution: ImageResolution, outputOptions: puppeteer.ScreenshotOptions, resourcePath?: string, browser?: Browser
+  template: ImageTemplate, paramValues: ParamValues, resolution: ImageResolution, outputOptions: ScreenshotOptions, resourcePath?: string, browser?: Browser
 ): Promise<string | Buffer | void> => {
   const htmlPath = renderLocalTemplate(template, paramValues, resolution, resourcePath);
   return convertUrlToImage(`file:///${htmlPath}`, outputOptions, browser);

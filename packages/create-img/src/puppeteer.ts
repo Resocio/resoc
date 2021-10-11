@@ -1,5 +1,4 @@
-import type { Browser } from 'puppeteer'
-import type puppeteer from 'puppeteer'
+import type { Browser, ScreenshotOptions } from 'puppeteer'
 
 const defaultLocalBrowser = async (): Promise<Browser> => {
   try {
@@ -15,7 +14,7 @@ const defaultLocalBrowser = async (): Promise<Browser> => {
   };
 }
 
-export const convertUrlToImage = async (url: string, outputOptions: puppeteer.ScreenshotOptions, browser?: Browser): Promise<string | void | Buffer> => {
+export const convertUrlToImage = async (url: string, outputOptions: ScreenshotOptions, browser?: Browser): Promise<string | void | Buffer> => {
   browser ||= await defaultLocalBrowser();
 
   const page = await browser.newPage();
