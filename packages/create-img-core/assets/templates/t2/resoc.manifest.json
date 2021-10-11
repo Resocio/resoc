@@ -1,0 +1,18 @@
+{
+  "partials": {
+    "content": "./content.html.mustache",
+    "styles": "./styles.css.mustache"
+  },
+  "parameters": [
+    {
+      "name": "title",
+      "type": "text",
+      "demoValue": "A picture is worth a thousand words"
+    },
+    {
+      "name": "description",
+      "type": "Description",
+      "demoValue": "And so much to say!"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
+
+<div class="wrapper">
+  <h1 id="title">
+    {{ title }}
+  </h1>
+  <div id="footer">
+    <h2 id="description">
+      {{ description }}
+    </h2>
+    <h2 id="logo">
+      🚀
+    </h2>
+  </div>
+</div>
+
+<script src="textFit.js"></script>
+<script>
+  window.onload = function() {
+    textFit(document.getElementById('title'), { maxFontSize: 500, multiLine: true });
+  };
+</script>
