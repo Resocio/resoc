@@ -26,7 +26,7 @@
   "homepage": "https://github.com/Resocio/compiler#readme",
   "dependencies": {
     "@resoc/core": "^0.8.0",
-    "@resoc/create-img": "^0.8.0",
+    "@resoc/create-img": "^0.7.1",
     "commander": "^8.1.0",
     "recursive-copy": "^2.0.13"
   },
@@ -48,5 +48,5 @@
     "ts-node": "^10.2.1",
     "typescript": "^4.3.5"
   },
-  "gitHead": "ef479333c4159d7c8ba0ec82492d76292056a105"
+  "gitHead": "572705155e6c58d94a61ff3a4b325d90e194d479"
 }
