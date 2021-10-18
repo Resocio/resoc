@@ -32,6 +32,12 @@ ${props.parameters.map(p => `    ${p.name}: ${paramValueToJS(p, props.values[p.n
 
       <p>Create an image:</p>
       <CodeBlock code={code} />
+
+      <p>
+        Use case: <a href="https://blog.philippebernard.dev/static-automated-social-images-with-nextjs">
+          Static, automated social images with NextJS
+        </a>
+      </p>
     </div>
   );
 }

@@ -23,6 +23,12 @@ const CommandLine = (props: CommandLineProps) => {
     <div>
       <p>Open a shell and run:</p>
       <CodeBlock commandLine code={commandLine} />
+
+      <p>
+        Use case: <a href="https://blog.philippebernard.dev/replace-imagemagick-with-html-and-css">
+          Replace ImageMagick with HTML &amp; CSS
+        </a>
+      </p>
     </div>
   );
 };
