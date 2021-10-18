@@ -3,6 +3,7 @@ import React from 'react'
 import { Tab, Tabs } from 'react-bootstrap';
 import CreateCommandLine from './CommandLine';
 import JavaScript from './JavaScript';
+import Netlify from './Netlify';
 
 export type CreateImageProps = {
   manifestPath: string;
@@ -17,6 +18,9 @@ const CreateImage = (props: CreateImageProps) => (
     </Tab>
     <Tab eventKey="js" title="JavaScript">
       <JavaScript {...props} />
+    </Tab>
+    <Tab eventKey="netlify" title="Netlify">
+      <Netlify />
     </Tab>
   </Tabs>
 );
