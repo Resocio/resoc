@@ -2,6 +2,7 @@ import { ParamValues, TemplateParam } from '@resoc/core';
 import React from 'react'
 import { Tab, Tabs } from 'react-bootstrap';
 import CreateCommandLine from './CommandLine';
+import ImageEngine from './ImageEngine';
 import JavaScript from './JavaScript';
 import Netlify from './Netlify';
 
@@ -21,6 +22,9 @@ const CreateImage = (props: CreateImageProps) => (
     </Tab>
     <Tab eventKey="netlify" title="Netlify">
       <Netlify />
+    </Tab>
+    <Tab eventKey="image-engine" title="Self-managed API">
+      <ImageEngine />
     </Tab>
   </Tabs>
 );
