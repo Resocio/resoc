@@ -1,6 +1,6 @@
 {
   "name": "@resoc/ui",
-  "version": "0.6.7",
+  "version": "0.8.4",
   "description": "Resoc UI components",
   "main": "build/index.cjs.js",
   "module": "build/index.esm.js",
@@ -110,6 +110,6 @@
   },
   "dependencies": {
     "@react-hook/resize-observer": "^1.2.4",
-    "@resoc/core": "^0.8.1"
+    "@resoc/core": "^0.8.4"
   }
 }
