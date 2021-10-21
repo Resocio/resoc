@@ -1,11 +1,15 @@
 {
   "name": "itdk",
-  "version": "0.8.4",
+  "version": "0.8.5",
   "description": "Resoc Image Template Development Kit",
   "main": "build/cli/index.js",
   "module": "build/cli/index.es.js",
   "bin": "build/cli/index.js",
-  "files": [ "build", "starter-templates", "viewer" ],
+  "files": [
+    "build",
+    "starter-templates",
+    "viewer"
+  ],
   "scripts": {
     "test": "jest",
     "build:bundle": "webpack --mode production",
@@ -32,7 +36,7 @@
   "homepage": "https://github.com/Resocio/resoc#readme",
   "dependencies": {
     "@react-hook/resize-observer": "^1.2.4",
-    "@resoc/core": "^0.8.4",
+    "@resoc/core": "^0.8.5",
     "axios": "^0.21.1",
     "bootstrap": "^5.1.0",
     "cli-color": "^2.0.0",

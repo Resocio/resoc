@@ -1,11 +1,13 @@
 {
   "name": "@resoc/core",
-  "version": "0.8.4",
+  "version": "0.8.5",
   "description": "Resoc core utils",
   "main": "build/index.js",
   "module": "build/index.es.js",
   "types": "build/index.d.ts",
-  "files": [ "build" ],
+  "files": [
+    "build"
+  ],
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",

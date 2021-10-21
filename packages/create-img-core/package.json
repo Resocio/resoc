@@ -1,10 +1,12 @@
 {
   "name": "@resoc/create-img-core",
-  "version": "0.8.4",
+  "version": "0.8.5",
   "description": "Create an image based on a Resoc image template",
   "main": "build/index.js",
   "module": "./build/index.es.js",
-  "files": [ "build" ],
+  "files": [
+    "build"
+  ],
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
@@ -27,7 +29,7 @@
   },
   "homepage": "https://github.com/Resocio/resoc/issues#readme",
   "dependencies": {
-    "@resoc/core": "^0.8.4",
+    "@resoc/core": "^0.8.5",
     "commander": "^8.1.0",
     "folder-hash": "^4.0.1",
     "mustache": "^4.2.0",
