@@ -1,0 +1,29 @@
+{
+  "partials": {
+    "content": "./content.html.mustache",
+    "styles": "./styles.css.mustache"
+  },
+  "parameters": [
+    {
+      "name": "title",
+      "type": "text",
+      "demoValue": "A picture is worth a thousand words"
+    },
+    {
+      "label": "Main image",
+      "name": "mainImageUrl",
+      "type": "imageUrl",
+      "demoValue": "https://resoc.io/assets/img/demo/photos/pexels-photo-2347483.jpeg"
+    },
+    {
+      "name": "textColor",
+      "type": "color",
+      "demoValue": "#ffffff"
+    },
+    {
+      "name": "backgroundColor",
+      "type": "color",
+      "demoValue": "#003bff"
+    }
+  ]
+}

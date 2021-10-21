@@ -1,0 +1,73 @@
+.wrapper {
+  background-color: grey;
+  display: flex;
+  align-items: stretch;
+  color: {{ textColor }};
+}
+
+.side {
+  flex: 1;
+
+  background-color: {{ backgroundColor }};
+  padding: 2vw;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12vh;
+}
+
+.side-content {
+  flex: 1 2;
+}
+
+#title {
+  margin-top: 0;
+  font-size: 0.01rem; /* Rely on textFit to find the right size */
+  font-family: Roboto;
+  height: 100%;
+}
+
+.footer {
+  flex: 0 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2vw;
+}
+
+.logo {
+  width: 9vh;
+  height: 9vh;
+}
+
+.brand-name {
+  margin: 0;
+  font-size: 9vh;
+  font-family: Roboto;
+}
+
+.main {
+  flex: 1.62; /* Gold proportions */
+  position: relative;
+}
+
+.main-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.extended-background {
+  position: absolute;
+  left: -1px;
+  top: 0;
+  background-color: {{ backgroundColor }};
+  width: 8vh;
+  height: 100%;
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    0 100%,
+    0 100%
+  );
+}
