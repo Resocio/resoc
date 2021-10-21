@@ -3,6 +3,7 @@
   "version": "0.8.4",
   "description": "Create an image based on a Resoc image template",
   "bin": "build/cli.js",
+  "files": [ "build" ],
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",

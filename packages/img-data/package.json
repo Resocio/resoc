@@ -4,6 +4,7 @@
   "description": "Manage image data",
   "main": "build/index.js",
   "module": "./build/index.es.js",
+  "files": [ "build" ],
   "private": false,
   "scripts": {
     "test": "jest",

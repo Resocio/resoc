@@ -5,6 +5,7 @@
   "main": "build/cli/index.js",
   "module": "build/cli/index.es.js",
   "bin": "build/cli/index.js",
+  "files": [ "build", "starter-templates", "viewer" ],
   "scripts": {
     "test": "jest",
     "build:bundle": "webpack --mode production",
