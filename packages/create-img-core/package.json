@@ -30,7 +30,6 @@
   "homepage": "https://github.com/Resocio/resoc/issues#readme",
   "dependencies": {
     "@resoc/core": "^0.8.5",
-    "commander": "^8.1.0",
     "folder-hash": "^4.0.1",
     "mustache": "^4.2.0",
     "recursive-copy": "^2.0.13",
