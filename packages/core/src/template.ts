@@ -1,4 +1,5 @@
 import Mustache from 'mustache'
+import { ImageResolution } from './resolution';
 import { ImageSpecs, WebPageSocialImageDestination } from './image-specs';
 
 export const DefaultManifestName = 'resoc.manifest.json';
@@ -80,21 +81,6 @@ export const getImageSpecs = (template: ImageTemplate): ImageSpecs => (
 );
 
 export type ParamValues = { [ name: string ]: ParamValue };
-
-export type ImageResolution = {
-  width: number;
-  height: number;
-};
-
-export const FacebookOpenGraph: ImageResolution = {
-  width: 1200,
-  height: 630
-};
-
-export const TwitterCard: ImageResolution = {
-  width: 1500,
-  height: 750
-};
 
 export const demoParamValues = (params: TemplateParam[]): ParamValues => {
   const values: ParamValues = {};

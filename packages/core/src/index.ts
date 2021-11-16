@@ -1,4 +1,13 @@
 export {
+  FacebookOpenGraph,
+  TwitterCard
+} from './resolution';
+
+export type {
+  ImageResolution
+} from "./resolution";
+
+export {
   DefaultManifestName,
   renderTemplateToHtml,
   demoParamValues,
@@ -7,8 +16,6 @@ export {
   stringToParamValue,
   paramValueToString,
   getImageSpecs,
-  FacebookOpenGraph,
-  TwitterCard,
   ParamType
 } from "./template";
 
@@ -19,7 +26,6 @@ export type {
   ParamValue,
   ParamValues,
   TemplateParam,
-  ImageResolution
 } from "./template";
 
 export type {
@@ -38,6 +44,7 @@ export {
   getImageMaxHeight,
   getImageMinHeight,
   getImageHeight,
+  getImageDemoResolution,
   ImageDestination,
   TwitterBannerDestination,
   WebPageSocialImageDestination

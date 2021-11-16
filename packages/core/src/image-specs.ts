@@ -1,3 +1,4 @@
+import { FacebookOpenGraph, ImageResolution } from ".";
 
 export enum ImageDestination {
   WebPageSocialImage = 'WebPageSocialImage',
@@ -88,3 +89,14 @@ export const getImageHeight = (specs: ImageSpecs): number | undefined => {
   const s = fillImageSpecsViaDestination(specs);
   return s.height;
 };
+
+export const getImageDemoResolution = (specs: ImageSpecs): ImageResolution => {
+  const s = fillImageSpecsViaDestination(specs);
+
+  if (s.destination === ImageDestination.TwitterBanner) {
+    const height = 600;
+    return { width: height * (getImageRatio(s) || 3.0), height };
+  }
+
+  return FacebookOpenGraph;
+}
