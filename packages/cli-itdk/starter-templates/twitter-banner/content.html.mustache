@@ -8,7 +8,7 @@
   </h1>
   <div id="footer">
     <h2 id="followers">
-      Join my {{ followerCount }} followers!
+      Join my <span class="bigNum">{{ followerCount }}</span> followers!
     </h2>
     <img id="logo" src="logo.png" />
   </div>
@@ -18,5 +18,11 @@
 <script>
   window.onload = function() {
     textFit(document.getElementById('title'), { maxFontSize: 500, multiLine: true });
-  };
+
+  var formatter = Intl.NumberFormat('en', { notation: 'compact' });
+  var data = document.querySelectorAll(".bigNum");
+  for (var i = 0; i < data.length; i++) {
+    data[i].innerHTML = formatter.format(data[i].innerHTML);
+  }
+};
 </script>
