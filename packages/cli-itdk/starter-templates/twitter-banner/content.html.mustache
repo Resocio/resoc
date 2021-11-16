@@ -1,0 +1,22 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
+
+<div class="wrapper">
+  <h1 id="title">
+    Hey! It's nice to see you here
+  </h1>
+  <div id="footer">
+    <h2 id="followers">
+      Join my {{ followerCount }} followers!
+    </h2>
+    <img id="logo" src="logo.png" />
+  </div>
+</div>
+
+<script src="textFit.js"></script>
+<script>
+  window.onload = function() {
+    textFit(document.getElementById('title'), { maxFontSize: 500, multiLine: true });
+  };
+</script>

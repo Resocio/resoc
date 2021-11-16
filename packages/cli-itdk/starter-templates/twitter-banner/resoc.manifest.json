@@ -1,0 +1,16 @@
+{
+  "imageSpecs": {
+    "destination": "TwitterBanner"
+  },
+  "partials": {
+    "content": "./content.html.mustache",
+    "styles": "./styles.css.mustache"
+  },
+  "parameters": [
+    {
+      "name": "followerCount",
+      "type": "number",
+      "demoValue": "12345"
+    }
+  ]
+}

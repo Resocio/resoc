@@ -1,0 +1,44 @@
+.wrapper {
+  font-family: Roboto;
+
+  padding: 4vw;
+
+  background: rgb(7,68,144);
+  background: linear-gradient(50deg, rgba(7,68,144,1) 0%, rgba(0,123,255,1) 100%);
+
+  color: white;
+
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10vh;
+}
+
+#title {
+  flex: 1.62;
+  font-size: 0.01rem; /* Rely on textFit to find the right size */
+  height: 100%;
+  text-align: right;
+  margin-left: 20vw;
+}
+
+#footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10vh;
+
+  font-size: 6vh;
+}
+
+#followers {
+  margin: 0;
+
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+#logo {
+  height: 10vh;
+}
