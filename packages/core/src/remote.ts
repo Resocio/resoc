@@ -41,7 +41,5 @@ export const loadRemoteTemplate = async (manifestUrl: string): Promise<ImageTemp
     parameters.push(param);
   });
 
-  return {
-    partials, parameters
-  };
+  return Object.assign(manifest, { partials, parameters });
 };
