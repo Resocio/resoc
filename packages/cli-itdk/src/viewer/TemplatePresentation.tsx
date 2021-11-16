@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import TemplateParameters from './TemplateParameters';
 import RichPreview from './RichPreview';
 import CreateImage from './create/CreateImage';
+import ImageSpecsBasedPreviews from './ImageSpecsBasedPreviews';
 
 export type TemplatePresentationProps = {
   template: ImageTemplate;
@@ -17,41 +18,11 @@ export type TemplatePresentationProps = {
   onChange: (newValues: ParamValues) => void;
 };
 
-type PreviewProps = {
-  title: string;
-  template: ImageTemplate;
-  parameters: ParamValues;
-  baseUrl?: string;
-  backgroundImageUrl?: string;
-  width: number;
-  height: number;
-};
-
-const Preview = (props: PreviewProps) => (
-  <div>
-    <Card.Subtitle>{props.title}</Card.Subtitle>
-    <RichPreview
-      template={props.template}
-      parameters={props.parameters}
-      baseUrl={props.baseUrl}
-      width={props.width}
-      height={props.height}
-      backgroundImageUrl={props.backgroundImageUrl}
-    />
-  </div>
-);
-
 const Wrapper = styled.div``;
 
 const ParamsContainer = styled.div`
   flex: 1;
   height: 100%;
-`;
-
-const PreviewsWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
 `;
 
 const PresCard = styled(Card)`
@@ -66,31 +37,7 @@ const TemplatePresentation = (props: TemplatePresentationProps) => {
       <Row className="mb-3">
         <Col md={6}>
           <PresCard>
-            <Card.Body>
-              <Card.Title>Previews</Card.Title>
-
-              <PreviewsWrapper>
-                <Preview
-                  title="Facebook"
-                  template={props.template}
-                  parameters={props.values}
-                  baseUrl={props.baseUrl}
-                  width={FacebookOpenGraph.width}
-                  height={FacebookOpenGraph.height}
-                  backgroundImageUrl={props.facebookModelUrl}
-                />
-
-                <Preview
-                  title="Twitter Card"
-                  template={props.template}
-                  parameters={props.values}
-                  baseUrl={props.baseUrl}
-                  width={TwitterCard.width}
-                  height={TwitterCard.height}
-                  backgroundImageUrl={props.twitterModelUrl}
-                />
-              </PreviewsWrapper>
-            </Card.Body>
+            <ImageSpecsBasedPreviews {...props} />
           </PresCard>
         </Col>
 
