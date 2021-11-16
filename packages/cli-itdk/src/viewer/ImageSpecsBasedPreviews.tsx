@@ -1,5 +1,5 @@
-import { FacebookOpenGraph, ImageTemplate, ParamValues, TwitterCard } from '@resoc/core';
-import React from 'react'
+import { FacebookOpenGraph, getImageRatio, getImageSpecs, ImageDestination, ImageTemplate, ParamValues, TwitterCard } from '@resoc/core';
+import React, { ReactFragment } from 'react'
 import { Card } from 'react-bootstrap';
 import styled from 'styled-components';
 import RichPreview from './RichPreview';
@@ -19,7 +19,7 @@ const PreviewsWrapper = styled.div`
 `;
 
 type PreviewProps = {
-  title: string;
+  title?: string;
   template: ImageTemplate;
   parameters: ParamValues;
   baseUrl?: string;
@@ -30,7 +30,9 @@ type PreviewProps = {
 
 const Preview = (props: PreviewProps) => (
   <div>
-    <Card.Subtitle>{props.title}</Card.Subtitle>
+    {props.title && (
+      <Card.Subtitle>{props.title}</Card.Subtitle>
+    )}
     <RichPreview
       template={props.template}
       parameters={props.parameters}
@@ -43,11 +45,15 @@ const Preview = (props: PreviewProps) => (
 );
 
 const ImageSpecsBasedPreviews = (props: ImageSpecsBasedPreviewsProps) => {
-  return (
-    <Card.Body>
-      <Card.Title>Previews</Card.Title>
+  const imageSpecs = getImageSpecs(props.template);
 
-      <PreviewsWrapper>
+  let previews: ReactFragment;
+  let mainTitle: string;
+
+  if (imageSpecs.destination === ImageDestination.WebPageSocialImage) {
+    mainTitle = 'Previews';
+    previews = (
+      <>
         <Preview
           title="Facebook"
           template={props.template}
@@ -67,6 +73,41 @@ const ImageSpecsBasedPreviews = (props: ImageSpecsBasedPreviewsProps) => {
           height={TwitterCard.height}
           backgroundImageUrl={props.twitterModelUrl}
         />
+      </>
+    );
+  } else if (imageSpecs.destination === ImageDestination.TwitterBanner) {
+    mainTitle = 'Twitter banner';
+    const height = 600;
+    previews = (
+      <Preview
+        template={props.template}
+        parameters={props.values}
+        baseUrl={props.baseUrl}
+        width={height * (getImageRatio(imageSpecs) || 3.0)}
+        height={height}
+      />
+    );
+  } else {
+    // TODO: Take real specs into account
+    mainTitle = 'Preview';
+    previews = (
+      <Preview
+        template={props.template}
+        parameters={props.values}
+        baseUrl={props.baseUrl}
+        width={FacebookOpenGraph.width}
+        height={FacebookOpenGraph.height}
+        backgroundImageUrl={props.facebookModelUrl}
+      />
+    );
+  }
+
+  return (
+    <Card.Body>
+      <Card.Title>{mainTitle}</Card.Title>
+
+      <PreviewsWrapper>
+        {previews}
       </PreviewsWrapper>
     </Card.Body>
   );
