@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Alert, Card } from 'react-bootstrap';
-import { demoParamValues, ImageTemplate, isAbsoluteUrl, loadRemoteTemplate, ParamValues, TemplateParam } from '@resoc/core';
+import { demoParamValues, getImageSpecs, ImageTemplate, isAbsoluteUrl, loadRemoteTemplate, ParamValues, TemplateParam } from '@resoc/core';
 import TemplatePresentation from './TemplatePresentation';
 import LocalStarterAlert from './alerts/LocalStarterAlert';
 import { waitForUpdates } from './Utils';
@@ -108,6 +108,7 @@ const ViewerApp = (props: ViewerAppProps) => {
                   parameters={parametersAndValues.parameters}
                   values={parametersAndValues.values}
                   manifestPath={props.manifestPath}
+                  imageSpecs={getImageSpecs(template)}
                 />
               </Card.Body>
             </Card>

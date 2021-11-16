@@ -1,4 +1,4 @@
-import { ParamValues, TemplateParam } from '@resoc/core';
+import { ImageSpecs, ParamValues, TemplateParam } from '@resoc/core';
 import React from 'react'
 import { Tab, Tabs } from 'react-bootstrap';
 import CreateCommandLine from './CommandLine';
@@ -10,6 +10,7 @@ export type CreateImageProps = {
   manifestPath: string;
   parameters: TemplateParam[];
   values: ParamValues;
+  imageSpecs: ImageSpecs;
 };
 
 const CreateImage = (props: CreateImageProps) => (
