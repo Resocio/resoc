@@ -1,4 +1,5 @@
 import Mustache from 'mustache'
+import { ImageSpecs, WebPageSocialImageDestination } from './image-specs';
 
 export const DefaultManifestName = 'resoc.manifest.json';
 
@@ -71,7 +72,12 @@ export type TemplateParam = {
 export interface ImageTemplate {
   partials: { [ name: string ]: string };
   parameters: TemplateParam[];
+  imageSpecs?: ImageSpecs;
 };
+
+export const getImageSpecs = (template: ImageTemplate): ImageSpecs => (
+  template.imageSpecs || WebPageSocialImageDestination
+);
 
 export type ParamValues = { [ name: string ]: ParamValue };
 
