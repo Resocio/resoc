@@ -19,7 +19,7 @@ const runCommand = async () => {
     .option('-f, --force', 'create the template, even if the target directory is not empty')
     .addOption(
       new Option('-m, --model <model>', 'The model to start from')
-      .choices(['basic', 'title-description'])
+      .choices(['basic', 'title-description', 'twitter-banner'])
       .default('basic')
     )
     .action(async (templateDir, args) => {
