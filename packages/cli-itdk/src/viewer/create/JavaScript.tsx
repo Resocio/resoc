@@ -1,4 +1,4 @@
-import { ParamType, ParamValue, paramValueToString, TemplateParam } from '@resoc/core';
+import { getImageDemoResolution, ImageDestination, ParamType, ParamValue, paramValueToString, TemplateParam } from '@resoc/core';
 import React from 'react'
 import CodeBlock from './CodeBlock';
 import { CreateImageProps } from './CreateImage';
@@ -11,16 +11,23 @@ const paramValueToJS = (param: TemplateParam, value: ParamValue): string => {
 }
 
 const JavaScript = (props: JavaScriptProps) => {
-  const code =
-`import { FacebookOpenGraph } from '@resoc/core'
-import { createImage } from '@resoc/create-img'
+  let resolutionPackage = '';
+  const resolution = getImageDemoResolution(props.imageSpecs);
+  let resolutionParam = `{ width: ${resolution.width}, height: ${resolution.height} }`;
+  if (props.imageSpecs.destination === ImageDestination.WebPageSocialImage) {
+    resolutionPackage = "import { FacebookOpenGraph } from '@resoc/core'\n";
+    resolutionParam = 'FacebookOpenGraph';
+  }
 
-createImage(
+  const code =
+`${resolutionPackage}import { createImage } from '@resoc/create-img'
+
+await createImage(
   '${props.manifestPath}', 
   {
 ${props.parameters.map(p => `    ${p.name}: ${paramValueToJS(p, props.values[p.name])}`).join(',\n')}
   },
-  FacebookOpenGraph,
+  ${resolutionParam},
   'output-image.jpg'
 );
 `;
@@ -28,7 +35,7 @@ ${props.parameters.map(p => `    ${p.name}: ${paramValueToJS(p, props.values[p.n
   return (
     <div>
       <p>Install Resoc and Puppeteer:</p>
-      <CodeBlock commandLine code="npm install @resoc/core @resoc/create-img puppeteer" />
+      <CodeBlock commandLine code="npm install @resoc/core @resoc/create-img" />
 
       <p>Create an image:</p>
       <CodeBlock code={code} />
