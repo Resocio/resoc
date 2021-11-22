@@ -1,4 +1,4 @@
-import { FacebookOpenGraph, ImageResolution } from ".";
+import { FacebookOpenGraph, ImageResolution } from "./resolution";
 
 export enum ImageDestination {
   WebPageSocialImage = 'WebPageSocialImage',
